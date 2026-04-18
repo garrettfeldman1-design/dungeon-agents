@@ -7,21 +7,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:      #0e0e0e;
-  --bg2:     #161616;
-  --bg3:     #1e1e1e;
-  --border:  #2a2a2a;
-  --text:    #c2c2c2;
-  --dim:     #555;
-  --accent:  #4a9eff;
-  --a1:      #2563eb;
-  --a1b:     #60a5fa;
-  --a2:      #c2410c;
-  --a2b:     #fb923c;
-  --key-c:   #ca8a04;
-  --door-c:  #b91c1c;
-  --exit-c:  #15803d;
-  --msg-c:   #7c3aed;
+  --bg:     #0e0e0e;
+  --bg2:    #151515;
+  --bg3:    #1c1c1c;
+  --border: #242424;
+  --text:   #c0c0c0;
+  --dim:    #4a4a4a;
+  --dim2:   #666;
+  --accent: #4a9eff;
+  --a1:     #2563eb;
+  --a1hi:   #60a5fa;
+  --a2:     #c2410c;
+  --a2hi:   #fb923c;
+  --key-c:  #ca8a04;
+  --door-c: #b91c1c;
+  --exit-c: #15803d;
+  --msg-c:  #6d28d9;
 }
 
 body {
@@ -29,91 +30,98 @@ body {
   color: var(--text);
   font-family: 'Courier New', Courier, monospace;
   font-size: 13px;
-  min-width: 900px;
-}
-
-/* ── header ── */
-header {
+  min-width: 980px;
+  height: 100vh;
   display: flex;
-  align-items: baseline;
-  gap: 14px;
-  padding: 9px 18px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
-}
-header h1   { font-size: 12px; letter-spacing: 3px; color: var(--accent); }
-header .sub { font-size: 11px; color: var(--dim); }
-header .keys { margin-left: auto; font-size: 10px; color: var(--dim); }
-
-/* ── three-column layout ── */
-.layout {
-  display: grid;
-  grid-template-columns: auto 1fr 260px;
-  height: calc(100vh - 38px);
+  flex-direction: column;
   overflow: hidden;
 }
 
-/* ── column 1: grid ── */
+/* ── header ────────────────────────────────────────────────────────────────── */
+header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  flex-shrink: 0;
+}
+header h1  { font-size: 12px; letter-spacing: 3px; color: var(--accent); }
+.sub       { font-size: 11px; color: var(--dim2); }
+.hkeys     { margin-left: auto; font-size: 10px; color: var(--dim); }
+
+/* ── three-column layout ───────────────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: auto 1fr 286px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── col 1: grid ───────────────────────────────────────────────────────────── */
 .col-grid {
   border-right: 1px solid var(--border);
-  padding: 18px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 13px;
   overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* Grid wrapper — holds the cell grid + SVG trail overlay */
+.grid-wrap {
+  position: relative;
+  width: 398px;
+  height: 398px;
+  flex-shrink: 0;
 }
 
 .dungeon-grid {
   display: grid;
   grid-template-columns: repeat(8, 48px);
-  grid-template-rows: repeat(8, 48px);
+  grid-template-rows:    repeat(8, 48px);
   gap: 2px;
-  flex-shrink: 0;
 }
 
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   border: 1px solid #111;
-  cursor: default;
   user-select: none;
 }
-.c-wall  { background: #1f1f1f; color: #363636; border-color: #232323; }
-.c-empty { background: #121212; color: #252525; }
-.c-key   { background: #131100; color: var(--key-c);  border-color: #332900; }
-.c-door  { background: #130000; color: var(--door-c); border-color: #2a0000; }
-.c-exit  { background: #001308; color: var(--exit-c); border-color: #002010; }
-.c-a1    { background: var(--a1); color: #fff; border-color: var(--a1b); }
-.c-a2    { background: var(--a2); color: #fff; border-color: var(--a2b); }
+.c-empty { background: #111; color: #252525; }
+.c-wall  { background: #1d1d1d; color: #303030; border-color: #1a1a1a; }
+.c-key   { background: #130f00; color: var(--key-c);  border-color: #2e2000; }
+.c-door  { background: #120000; color: var(--door-c); border-color: #280000; }
+.c-exit  { background: #001108; color: var(--exit-c); border-color: #001e10; }
+.c-a1    { background: var(--a1); color: #fff; border-color: var(--a1hi); }
+.c-a2    { background: var(--a2); color: #fff; border-color: var(--a2hi); }
 .c-both  { background: #5b21b6; color: #fff; border-color: #8b5cf6; }
 
-/* legend */
+/* SVG trail overlay sits above cells, ignores mouse */
+.trail-svg {
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+}
+
+/* Legend */
 .legend {
   display: flex;
-  gap: 10px;
+  gap: 9px;
   flex-wrap: wrap;
 }
-.li {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  color: var(--dim);
-}
-.sw {
-  width: 12px;
-  height: 12px;
-  border: 1px solid #333;
-  flex-shrink: 0;
-}
+.li { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--dim2); }
+.sw { width: 11px; height: 11px; border: 1px solid #333; flex-shrink: 0; }
 
-/* controls */
-.controls { display: flex; flex-direction: column; gap: 7px; }
+/* Controls */
+.controls { display: flex; flex-direction: column; gap: 6px; }
 .btn-row  { display: flex; align-items: center; gap: 5px; }
-
 button {
   background: var(--bg3);
   color: var(--text);
@@ -122,38 +130,59 @@ button {
   font-family: inherit;
   font-size: 11px;
   cursor: pointer;
-  white-space: nowrap;
 }
-button:hover   { background: #252525; border-color: #444; }
-button:disabled { opacity: 0.3; cursor: default; }
-
+button:hover   { background: #222; border-color: #3a3a3a; }
+button:disabled { opacity: 0.25; cursor: default; }
 #slider {
   flex: 1;
   accent-color: var(--accent);
-  height: 4px;
 }
-.turn-label { font-size: 11px; color: var(--dim); white-space: nowrap; }
+.turn-label { font-size: 11px; color: var(--dim2); white-space: nowrap; }
 
-/* ── column 2: info ── */
+/* ── col 2: info ───────────────────────────────────────────────────────────── */
 .col-info {
   border-right: 1px solid var(--border);
-  padding: 18px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  overflow: hidden;
 }
 
-.panel-heading {
-  font-size: 11px;
+/* One-line plain-English summary pinned at the top */
+.turn-summary {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 16px;
+  font-size: 12px;
+  color: var(--accent);
+  flex-shrink: 0;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.summary-agent1 { color: var(--a1hi); }
+.summary-agent2 { color: var(--a2hi); }
+
+/* Scrollable info body */
+.info-inner {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.panel-head {
+  font-size: 10px;
   letter-spacing: 2px;
   color: var(--accent);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 7px;
+  padding-bottom: 6px;
 }
 
-.field { display: flex; flex-direction: column; gap: 3px; }
-.fl    { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); }
+.field { display: flex; flex-direction: column; gap: 2px; }
+.fl    { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--dim2); }
 .fv    { font-size: 13px; line-height: 1.5; }
 
 .badge {
@@ -165,69 +194,116 @@ button:disabled { opacity: 0.3; cursor: default; }
   font-size: 12px;
 }
 
-.reward { font-size: 18px; font-weight: 700; }
-.rpos   { color: #4ade80; }
-.rneg   { color: var(--dim); }
+.reward     { font-size: 18px; font-weight: 700; }
+.reward-pos { color: #4ade80; }
+.reward-neg { color: var(--dim2); }
 
 .reasoning {
   background: var(--bg2);
   border-left: 2px solid var(--border);
-  padding: 8px 10px;
+  padding: 7px 10px;
   font-size: 11px;
-  color: #666;
-  line-height: 1.6;
-  max-height: 140px;
+  color: #585858;
+  line-height: 1.7;
+  max-height: 130px;
   overflow-y: auto;
   white-space: pre-wrap;
 }
 
-/* message block — the most important event type */
-.msg-block {
-  border: 1px solid #3b0764;
-  background: #0d0718;
-  padding: 12px 14px;
-}
-.msg-header {
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: #a78bfa;
-  margin-bottom: 8px;
-}
-.msg-body {
-  font-size: 13px;
-  color: #e2e8f0;
-  line-height: 1.7;
-  white-space: pre-wrap;
-}
-
-/* highlight bar */
+/* Highlight bars */
 .hl {
-  padding: 6px 10px;
+  padding: 5px 10px;
   font-size: 11px;
   border-left: 3px solid;
   line-height: 1.5;
 }
-.hl-key  { border-color: var(--key-c);  background: #1a1000; color: var(--key-c); }
-.hl-door { border-color: var(--door-c); background: #1a0000; color: var(--door-c); }
-.hl-exit { border-color: var(--exit-c); background: #001a00; color: var(--exit-c); }
-.hl-msg  { border-color: var(--msg-c);  background: #0f0420; color: #a78bfa; }
+.hl-key  { border-color: var(--key-c);  background: #130f00; color: var(--key-c); }
+.hl-door { border-color: var(--door-c); background: #120000; color: var(--door-c); }
+.hl-exit { border-color: var(--exit-c); background: #001108; color: var(--exit-c); }
+.hl-msg  { border-color: var(--msg-c);  background: #0d0520; color: #a78bfa; }
 
-.no-data { font-size: 12px; color: var(--dim); font-style: italic; }
+/* Speech bubble — for send_message turns */
+.speech-bubble {
+  position: relative;
+  background: #0c0618;
+  border: 1px solid #4c1d95;
+  padding: 12px 14px;
+  margin-top: 2px;
+}
+/* triangle pointing up (speaker is above/on the grid) */
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 14px;
+  border: 4px solid transparent;
+  border-bottom-color: #4c1d95;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 15px;
+  border: 3px solid transparent;
+  border-bottom-color: #0c0618;
+}
+.bubble-from {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #7c3aed;
+  margin-bottom: 8px;
+}
+.bubble-text {
+  font-size: 13px;
+  color: #e2d9f3;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 
-/* ── column 3: moments ── */
-.col-moments {
-  padding: 16px 14px;
+.no-data { font-size: 12px; color: var(--dim2); font-style: italic; }
+
+/* ── col 3: chart + moments ────────────────────────────────────────────────── */
+.col-right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chart-section {
+  border-bottom: 1px solid var(--border);
+  padding: 12px 14px;
+  flex-shrink: 0;
+}
+.chart-title {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--dim2);
+  margin-bottom: 8px;
+}
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+  font-size: 10px;
+}
+.cl-a1 { color: var(--a1hi); }
+.cl-a2 { color: var(--a2hi); }
+
+.moments-section {
+  flex: 1;
   overflow-y: auto;
+  padding: 12px 14px;
 }
 .moments-title {
   font-size: 9px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--dim);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .mi {
-  padding: 7px 9px;
+  padding: 6px 8px;
   margin-bottom: 3px;
   cursor: pointer;
   border-left: 2px solid transparent;
@@ -235,60 +311,61 @@ button:disabled { opacity: 0.3; cursor: default; }
   line-height: 1.5;
   transition: background 0.08s;
 }
-.mi:hover    { background: var(--bg3); }
-.mi.active   { background: var(--bg3); }
-.mi-turn     { font-size: 9px; color: var(--dim); margin-bottom: 2px; }
-.mi-label    { color: var(--text); }
+.mi:hover  { background: var(--bg3); }
+.mi.active { background: var(--bg3); }
+.mi-turn   { font-size: 9px; color: var(--dim2); margin-bottom: 1px; }
 
 .mi-key  { border-color: var(--key-c); }
 .mi-door { border-color: var(--door-c); }
 .mi-exit { border-color: var(--exit-c); }
 .mi-msg  { border-color: var(--msg-c); }
+.mi-key.active  { background: #130f00; }
+.mi-door.active { background: #120000; }
+.mi-exit.active { background: #001108; }
+.mi-msg.active  { background: #0d0520; }
 
-.mi-key.active  { background: #1a1000; }
-.mi-door.active { background: #1a0000; }
-.mi-exit.active { background: #001a00; }
-.mi-msg.active  { background: #0f0420; }
-
-/* ── loading overlay ── */
+/* ── loading ───────────────────────────────────────────────────────────────── */
 #loading {
   position: fixed; inset: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   background: var(--bg);
   font-size: 13px;
-  color: var(--dim);
-  gap: 8px;
+  color: var(--dim2);
+  gap: 7px;
 }
-#loading-detail { font-size: 11px; }
 </style>
 </head>
 <body>
 
 <div id="loading">
   loading game_log.json…
-  <div id="loading-detail"></div>
+  <div id="ld2" style="font-size:11px"></div>
 </div>
 
 <header>
   <h1>DUNGEON AGENTS</h1>
   <span class="sub">replay viewer</span>
-  <span class="keys">← → arrow keys to navigate</span>
+  <span class="hkeys">← → arrow keys &nbsp;|&nbsp; Home / End</span>
 </header>
 
 <div class="layout" id="app" style="display:none">
 
-  <!-- column 1: grid -->
+  <!-- col 1: dungeon grid -->
   <div class="col-grid">
-    <div class="dungeon-grid" id="grid"></div>
+    <div class="grid-wrap">
+      <div class="dungeon-grid" id="grid"></div>
+      <svg id="trailSvg" class="trail-svg" width="398" height="398"></svg>
+    </div>
 
     <div class="legend">
-      <div class="li"><span class="sw" style="background:#1f1f1f"></span>wall</div>
-      <div class="li"><span class="sw" style="background:#131100;border-color:#332900"></span>key</div>
-      <div class="li"><span class="sw" style="background:#130000;border-color:#2a0000"></span>door</div>
-      <div class="li"><span class="sw" style="background:#001308;border-color:#002010"></span>exit</div>
+      <div class="li"><span class="sw" style="background:#1d1d1d;border-color:#1a1a1a"></span>wall</div>
+      <div class="li"><span class="sw" style="background:#130f00;border-color:#2e2000"></span>key</div>
+      <div class="li"><span class="sw" style="background:#120000;border-color:#280000"></span>door</div>
+      <div class="li"><span class="sw" style="background:#001108;border-color:#001e10"></span>exit</div>
       <div class="li"><span class="sw" style="background:#2563eb"></span>agent 1</div>
       <div class="li"><span class="sw" style="background:#c2410c"></span>agent 2</div>
+      <div class="li"><span style="font-size:9px;color:var(--dim2)">faded = trail</span></div>
     </div>
 
     <div class="controls">
@@ -305,24 +382,37 @@ button:disabled { opacity: 0.3; cursor: default; }
     </div>
   </div>
 
-  <!-- column 2: info panel -->
-  <div class="col-info" id="infoPanel">
-    <div class="no-data">Use the controls above to step through the game.</div>
+  <!-- col 2: turn summary + info panel -->
+  <div class="col-info">
+    <div class="turn-summary" id="turnSummary">—</div>
+    <div class="info-inner" id="infoPanel">
+      <div class="no-data">Step through turns using the controls on the left.</div>
+    </div>
   </div>
 
-  <!-- column 3: key moments -->
-  <div class="col-moments">
-    <div class="moments-title">key moments</div>
-    <div id="momentsList"></div>
+  <!-- col 3: reward chart + key moments -->
+  <div class="col-right">
+    <div class="chart-section">
+      <div class="chart-title">CUMULATIVE REWARD</div>
+      <svg id="rewardChart" width="258" height="115"
+           style="display:block;background:#0e0e0e"></svg>
+      <div class="chart-legend">
+        <span class="cl-a1">▬ agent 1</span>
+        <span class="cl-a2">▬ agent 2</span>
+      </div>
+    </div>
+    <div class="moments-section">
+      <div class="moments-title">key moments</div>
+      <div id="momentsList"></div>
+    </div>
   </div>
 
 </div>
 
 <script>
-// ── Base dungeon layout ────────────────────────────────────────────────────────
-// E=empty, W=wall, K=key, D=door, X=exit
+// ── Dungeon base layout ────────────────────────────────────────────────────────
+// 0=empty 1=wall 2=key 3=door 4=exit
 const E=0, W=1, K=2, D=3, X=4;
-
 const BASE = [
   [W,W,W,W,W,W,W,W],
   [W,E,E,W,E,E,E,W],
@@ -334,304 +424,475 @@ const BASE = [
   [W,W,W,W,W,W,W,W],
 ];
 
-// Cell rendering tables (index = cell type; 5=agent1, 6=agent2, 7=both)
-const SYM   = ['·','▓','K','D','X','1','2','*'];
-const CLS   = ['c-empty','c-wall','c-key','c-door','c-exit','c-a1','c-a2','c-both'];
-const TITLE = ['empty','wall','KEY — pick me up!','LOCKED DOOR','EXIT','Agent 1','Agent 2','Both agents'];
+// cell type → CSS class and symbol  (indices 5=a1, 6=a2, 7=both)
+const CLS = ['c-empty','c-wall','c-key','c-door','c-exit','c-a1','c-a2','c-both'];
+const SYM = ['·','▓','K','D','X','1','2','*'];
+const TTL = ['empty','wall','KEY — pick me up!','LOCKED DOOR','EXIT','Agent 1','Agent 2','both agents'];
 
-// ── App state ─────────────────────────────────────────────────────────────────
-let log         = [];   // raw entries from game_log.json
-let validLog    = [];   // entries without errors
-let worldStates = [];   // one per display-index (0 = initial)
-let moments     = [];   // detected key moments
-let currentTurn = 0;    // display index 0..maxTurn
+// Grid geometry constants
+const STRIDE = 50;   // 48px cell + 2px gap
+const HALF   = 24;   // center offset within cell
+
+// ── App state ──────────────────────────────────────────────────────────────────
+let validLog    = [];   // log entries without errors
+let worldStates = [];   // one entry per display-index (0 = initial)
+let cumRewards  = null; // { a1: number[], a2: number[] }
+let moments     = [];
+let currentTurn = 0;
 let maxTurn     = 0;
 
-// ── World state reconstruction ────────────────────────────────────────────────
+// ── World state precomputation ─────────────────────────────────────────────────
 function buildWorldStates(entries) {
   const states = [];
-  let s = { a1: [1,1], a2: [1,6], keyPresent: true, doorLocked: true };
+  let s = {
+    a1: [1,1], a2: [1,6],
+    a1Trail: [], a2Trail: [],   // up to last 5 past positions
+    keyPresent: true,
+    doorLocked: true,
+  };
   states.push(clone(s));
 
   for (const e of entries) {
     s = clone(s);
-
-    // Update the acting agent's position from next_state
     const pos = e.next_state && e.next_state.position;
     if (pos) {
-      if (e.agent_id === 1) s.a1 = pos;
-      else                   s.a2 = pos;
+      if (e.agent_id === 1) {
+        s.a1Trail = [...s.a1Trail, s.a1].slice(-5);
+        s.a1 = pos;
+      } else {
+        s.a2Trail = [...s.a2Trail, s.a2].slice(-5);
+        s.a2 = pos;
+      }
     }
-
-    // Key picked up?
-    const inv0 = (e.state      && e.state.inventory)      || [];
-    const inv1 = (e.next_state && e.next_state.inventory) || [];
+    // Key collected?
+    const inv0 = ((e.state      || {}).inventory || []);
+    const inv1 = ((e.next_state || {}).inventory || []);
     if (inv1.includes('KEY') && !inv0.includes('KEY')) s.keyPresent = false;
-
-    // Door unlocked? reward spike ≥ 4.5 means +5 reward was earned
+    // Door unlocked?
     if (typeof e.reward === 'number' && e.reward >= 4.5) s.doorLocked = false;
-
     states.push(s);
   }
   return states;
 }
 
-// ── Key moment detection ──────────────────────────────────────────────────────
-function detectMoments(entries) {
-  const out = [];
-  entries.forEach((e, i) => {
-    const idx = i + 1;
-    const r   = typeof e.reward === 'number' ? e.reward : 0;
-    const ag  = e.agent_id;
+// ── Cumulative rewards ─────────────────────────────────────────────────────────
+function buildCumulativeRewards(entries) {
+  const a1 = new Array(entries.length + 1);
+  const a2 = new Array(entries.length + 1);
+  let c1 = 0, c2 = 0;
+  a1[0] = 0; a2[0] = 0;
+  for (let i = 0; i < entries.length; i++) {
+    const e = entries[i];
+    if (e.agent_id === 1) c1 += (e.reward || 0);
+    else                   c2 += (e.reward || 0);
+    a1[i+1] = round3(c1);
+    a2[i+1] = round3(c2);
+  }
+  return { a1, a2 };
+}
 
+// ── Key moment detection ───────────────────────────────────────────────────────
+function detectMoments(entries) {
+  return entries.flatMap((e, i) => {
+    const idx = i + 1;
+    const r   = e.reward || 0;
+    const ag  = e.agent_id;
+    const out = [];
     if (r >= 0.85 && r < 4.5)
       out.push({ idx, turn: e.turn, type: 'key',
         label: `Agent ${ag} collects the KEY` });
-
     if (r >= 4.5 && r < 9.5)
       out.push({ idx, turn: e.turn, type: 'door',
         label: `Agent ${ag} unlocks the door` });
-
     if (r >= 9.5)
       out.push({ idx, turn: e.turn, type: 'exit',
         label: `Agent ${ag} reaches the EXIT` });
-
     if (e.action && e.action.tool_called === 'send_message') {
       const args = e.action.tool_args || {};
-      const preview = (args.message || '').slice(0, 38);
+      const preview = (args.message || '').slice(0, 36);
       out.push({ idx, turn: e.turn, type: 'msg',
-        label: `Agent ${ag}→${args.recipient}: "${preview}${args.message && args.message.length > 38 ? '…' : ''}"` });
+        label: `Agent ${ag}→${args.recipient}: "${preview}${args.message && args.message.length > 36 ? '…' : ''}"` });
     }
+    return out;
   });
-  return out;
 }
 
-// ── Grid rendering ────────────────────────────────────────────────────────────
-function buildGrid(idx) {
+// ── Plain-English turn summary ─────────────────────────────────────────────────
+function makeSummary(e) {
+  if (!e) return '—';
+  const ag   = e.agent_id;
+  const tool = (e.action && e.action.tool_called) || '';
+  const args = (e.action && e.action.tool_args)   || {};
+  const res  = (e.result || '').toLowerCase();
+
+  switch (tool) {
+    case 'move':
+      return { ag, text: `moved ${args.direction || ''}` };
+    case 'look':
+      return { ag, text: 'looked around' };
+    case 'check_coordinates':
+      return { ag, text: 'checked their coordinates' };
+    case 'check_inventory':
+      return { ag, text: 'checked their inventory' };
+    case 'pick_up_item':
+      if (res.includes('key'))     return { ag, text: 'picked up the KEY' };
+      if (res.includes('nothing') || res.includes('no item'))
+                                   return { ag, text: 'tried to pick up an item — nothing there' };
+      return { ag, text: 'picked up an item' };
+    case 'use_item':
+      if (res.includes('unlock'))  return { ag, text: 'unlocked the door' };
+      if (res.includes("can't") || res.includes('cannot') || res.includes("doesn't"))
+                                   return { ag, text: `tried to use ${args.item || 'item'} — failed` };
+      return { ag, text: `used ${args.item || 'item'} on (${(args.target||[]).join(', ')})` };
+    case 'send_message':
+      return { ag, text: `sent a message to Agent ${args.recipient}` };
+    default:
+      return { ag, text: `called ${tool || '?'}` };
+  }
+}
+
+// ── Grid rendering ─────────────────────────────────────────────────────────────
+function buildGridData(idx) {
   const s    = worldStates[idx];
   const grid = BASE.map(row => [...row]);
-
   if (!s.keyPresent) grid[3][4] = E;
   if (!s.doorLocked) grid[4][3] = E;
-
   const [r1,c1] = s.a1;
   const [r2,c2] = s.a2;
-  if (r1 === r2 && c1 === c2) {
-    grid[r1][c1] = 7;
-  } else {
-    grid[r1][c1] = 5;
-    grid[r2][c2] = 6;
-  }
+  if (r1===r2 && c1===c2) { grid[r1][c1] = 7; }
+  else { grid[r1][c1] = 5; grid[r2][c2] = 6; }
   return grid;
 }
 
 function renderGrid(idx) {
-  const grid      = buildGrid(idx);
-  const container = document.getElementById('grid');
-  container.innerHTML = '';
+  const grid  = buildGridData(idx);
+  const el    = document.getElementById('grid');
+  el.innerHTML = '';
   for (let r = 0; r < 8; r++) {
     for (let c = 0; c < 8; c++) {
       const ct  = grid[r][c];
       const div = document.createElement('div');
       div.className   = `cell ${CLS[ct]}`;
       div.textContent = SYM[ct];
-      div.title       = `(${r},${c}) ${TITLE[ct] || ''}`;
-      container.appendChild(div);
+      div.title       = `(${r},${c})  ${TTL[ct]}`;
+      el.appendChild(div);
     }
   }
+  renderTrail(idx);
 }
 
-// ── Info panel ────────────────────────────────────────────────────────────────
+function renderTrail(idx) {
+  const s   = worldStates[idx];
+  const svg = document.getElementById('trailSvg');
+
+  function circles(trail, color) {
+    const n = trail.length;
+    return trail.map((pos, i) => {
+      // opacity ramps from 0.07 (oldest) to 0.38 (most recent past)
+      const opacity = n <= 1 ? 0.25 : 0.07 + (i / (n - 1)) * 0.31;
+      const cx = pos[1] * STRIDE + HALF;
+      const cy = pos[0] * STRIDE + HALF;
+      return `<circle cx="${cx}" cy="${cy}" r="7"
+                fill="${color}" opacity="${opacity.toFixed(2)}"/>`;
+    }).join('');
+  }
+
+  svg.innerHTML =
+    circles(s.a1Trail, '#3b82f6') +
+    circles(s.a2Trail, '#ea580c');
+}
+
+// ── Reward chart ───────────────────────────────────────────────────────────────
+function renderChart(idx) {
+  const svgEl = document.getElementById('rewardChart');
+  if (!cumRewards || maxTurn === 0) { svgEl.innerHTML = ''; return; }
+
+  const { a1, a2 } = cumRewards;
+  const n = a1.length;  // maxTurn + 1
+
+  // Y range
+  const all  = [...a1, ...a2];
+  let minV   = Math.min(...all, 0);
+  let maxV   = Math.max(...all, 0);
+  if (maxV - minV < 1) { maxV += 0.5; minV -= 0.5; }
+  const range = maxV - minV;
+
+  // Layout
+  const W  = 258, H  = 115;
+  const PL = 28,  PR = 6, PT = 8, PB = 16;
+  const pw = W - PL - PR;
+  const ph = H - PT - PB;
+
+  const px  = i   => n <= 1 ? PL + pw/2 : PL + (i / (n-1)) * pw;
+  const py  = val => PT + (1 - (val - minV) / range) * ph;
+  const fmt = v   => `${v >= 0 ? '+' : ''}${v.toFixed(1)}`;
+
+  function polyline(arr, color) {
+    const pts = arr.map((v, i) => `${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ');
+    return `<polyline points="${pts}" fill="none" stroke="${color}"
+              stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+  }
+
+  // Zero line
+  const zy = py(0);
+  const zeroLine = (minV <= 0 && maxV >= 0)
+    ? `<line x1="${PL}" y1="${zy.toFixed(1)}" x2="${W-PR}" y2="${zy.toFixed(1)}"
+            stroke="#282828" stroke-width="1" stroke-dasharray="3,3"/>`
+    : '';
+
+  // Current-turn marker
+  const mx  = px(idx);
+  const marker = `<line x1="${mx.toFixed(1)}" y1="${PT}"
+                        x2="${mx.toFixed(1)}" y2="${H-PB}"
+                        stroke="#3a3a3a" stroke-width="1"/>`;
+
+  // Dots at current idx
+  const y1c = py(a1[idx]);
+  const y2c = py(a2[idx]);
+  const dot1 = `<circle cx="${mx.toFixed(1)}" cy="${y1c.toFixed(1)}" r="3" fill="#3b82f6"/>`;
+  const dot2 = `<circle cx="${mx.toFixed(1)}" cy="${y2c.toFixed(1)}" r="3" fill="#ea580c"/>`;
+
+  // Value labels at current marker
+  const rightHalf = idx >= (n - 1) / 2;
+  const anchor    = rightHalf ? 'end' : 'start';
+  const xOff      = rightHalf ? -5 : 5;
+  const lbl1 = `<text x="${(mx+xOff).toFixed(1)}" y="${(y1c - 4).toFixed(1)}"
+                      fill="#60a5fa" font-size="8" font-family="monospace"
+                      text-anchor="${anchor}">${fmt(a1[idx])}</text>`;
+  // avoid overlapping labels when values are close
+  const sep  = Math.abs(y1c - y2c);
+  const yOff2 = sep < 14 ? 12 : -4;
+  const lbl2 = `<text x="${(mx+xOff).toFixed(1)}" y="${(y2c + yOff2).toFixed(1)}"
+                      fill="#fb923c" font-size="8" font-family="monospace"
+                      text-anchor="${anchor}">${fmt(a2[idx])}</text>`;
+
+  // Axis labels
+  const yMax = `<text x="${PL-3}" y="${(py(maxV)+3).toFixed(1)}"
+                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      text-anchor="end">${Math.round(maxV)}</text>`;
+  const yMin = `<text x="${PL-3}" y="${(py(minV)+3).toFixed(1)}"
+                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      text-anchor="end">${Math.round(minV)}</text>`;
+  const xL0  = `<text x="${PL}"   y="${H}"
+                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      text-anchor="middle">0</text>`;
+  const xLN  = `<text x="${W-PR}" y="${H}"
+                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      text-anchor="middle">${n-1}</text>`;
+
+  svgEl.innerHTML =
+    zeroLine + marker +
+    polyline(a2, '#ea580c') + polyline(a1, '#3b82f6') +
+    dot1 + dot2 + lbl1 + lbl2 +
+    yMax + yMin + xL0 + xLN;
+}
+
+// ── Turn summary header ────────────────────────────────────────────────────────
+function renderSummary(idx) {
+  const el = document.getElementById('turnSummary');
+  if (idx === 0) { el.innerHTML = 'initial state'; return; }
+
+  const s = makeSummary(validLog[idx - 1]);
+  if (!s || !s.ag) { el.innerHTML = '—'; return; }
+
+  const cls = s.ag === 1 ? 'summary-agent1' : 'summary-agent2';
+  el.innerHTML = `<span class="${cls}">Agent ${s.ag}</span>&nbsp;${esc(s.text)}`;
+}
+
+// ── Info panel ─────────────────────────────────────────────────────────────────
 function renderInfo(idx) {
   const panel = document.getElementById('infoPanel');
 
   if (idx === 0) {
     const ws = worldStates[0];
     panel.innerHTML = `
-      <div class="panel-heading">INITIAL STATE</div>
-      <div class="field"><div class="fl">agent 1</div><div class="fv">position ${fmtPos(ws.a1)}</div></div>
-      <div class="field"><div class="fl">agent 2</div><div class="fv">position ${fmtPos(ws.a2)}</div></div>
-      <div class="field"><div class="fl">world</div><div class="fv">Key present · Door locked · ${validLog.length} total turns logged</div></div>
-    `;
+      <div class="panel-head">INITIAL STATE</div>
+      <div class="field"><div class="fl">agent 1</div><div class="fv">position (${ws.a1.join(', ')})</div></div>
+      <div class="field"><div class="fl">agent 2</div><div class="fv">position (${ws.a2.join(', ')})</div></div>
+      <div class="field"><div class="fl">world</div>
+        <div class="fv">Key present · Door locked · ${validLog.length} turns logged</div></div>`;
     return;
   }
 
-  const e   = validLog[idx - 1];
-  const r   = typeof e.reward === 'number' ? e.reward : 0;
-  const pos = e.next_state && e.next_state.position;
-  const inv = e.next_state && e.next_state.inventory || [];
-  const act = e.action || {};
+  const e    = validLog[idx - 1];
+  const r    = typeof e.reward === 'number' ? e.reward : 0;
+  const act  = e.action || {};
   const args = act.tool_args || {};
+  const inv  = ((e.next_state || {}).inventory || []);
+  const pos  = (e.next_state || {}).position;
 
-  // Moment highlight bar
+  // Moment highlight
   const moment = moments.find(m => m.idx === idx);
-  const hlHtml = moment ? `
-    <div class="hl hl-${moment.type}">${momentIcon(moment.type)} ${esc(moment.label)}</div>` : '';
+  const hlHtml = moment
+    ? `<div class="hl hl-${moment.type}">${mIcon(moment.type)} ${esc(moment.label)}</div>` : '';
 
-  // Message section (most prominent event type)
-  let msgHtml = '';
+  // Speech bubble — only for send_message
+  let bubbleHtml = '';
   if (act.tool_called === 'send_message') {
-    msgHtml = `
+    bubbleHtml = `
       <div class="field">
-        <div class="fl">message content</div>
-        <div class="msg-block">
-          <div class="msg-header">AGENT ${e.agent_id} → AGENT ${args.recipient || '?'}</div>
-          <div class="msg-body">${esc(args.message || '')}</div>
+        <div class="fl">message</div>
+        <div class="speech-bubble">
+          <div class="bubble-from">AGENT ${e.agent_id} → AGENT ${args.recipient ?? '?'}</div>
+          <div class="bubble-text">${esc(args.message || '')}</div>
         </div>
       </div>`;
   }
 
-  // Args display (skip for no-arg tools)
-  const argPairs = Object.entries(args);
-  const argsHtml = argPairs.length ? argPairs.map(([k,v]) =>
-    `<span style="color:var(--dim)">${k}</span> = ${esc(JSON.stringify(v))}`
-  ).join('&nbsp;&nbsp;·&nbsp;&nbsp;') : '<span style="color:var(--dim)">—</span>';
-
-  // Reasoning (collapsed if empty)
-  const reasoning = (act.reasoning || '').trim();
-  const reasonHtml = reasoning ? `
-    <div class="field">
-      <div class="fl">reasoning</div>
-      <div class="reasoning">${esc(reasoning)}</div>
-    </div>` : '';
-
-  // Reward formatting
-  const rewardSign = r > 0 ? '+' : '';
-  const rewardCls  = r >= 0.5 ? 'rpos' : 'rneg';
-
-  // Cumulative reward (sum up to this point)
-  let cumReward = 0;
-  for (let i = 0; i < idx; i++) {
-    if (validLog[i].agent_id === e.agent_id)
-      cumReward += validLog[i].reward || 0;
+  // Args display (skip for message — shown in bubble; skip for no-arg tools)
+  const skipArgsFor = new Set(['send_message','look','check_coordinates','check_inventory','pick_up_item']);
+  let argsHtml = '';
+  if (!skipArgsFor.has(act.tool_called) && Object.keys(args).length) {
+    const pairs = Object.entries(args)
+      .map(([k,v]) => `<span style="color:var(--dim2)">${k}</span> = ${esc(JSON.stringify(v))}`)
+      .join(' &nbsp;·&nbsp; ');
+    argsHtml = `<div class="field"><div class="fl">arguments</div><div class="fv">${pairs}</div></div>`;
   }
-  cumReward = Math.round(cumReward * 1000) / 1000;
+
+  // Reasoning (skip if empty)
+  const reasoning = (act.reasoning || '').trim();
+  const reasonHtml = reasoning
+    ? `<div class="field"><div class="fl">reasoning</div><div class="reasoning">${esc(reasoning)}</div></div>`
+    : '';
+
+  // Cumulative reward for this agent up to this turn
+  let cumR = 0;
+  for (let i = 0; i < idx; i++) {
+    if (validLog[i].agent_id === e.agent_id) cumR += (validLog[i].reward || 0);
+  }
+  cumR = round3(cumR);
+
+  const rewardCls  = r >= 0.5 ? 'reward-pos' : 'reward-neg';
+  const rewardSign = r >= 0 ? '+' : '';
+  const cumSign    = cumR >= 0 ? '+' : '';
 
   panel.innerHTML = `
     ${hlHtml}
-    <div class="panel-heading">TURN ${e.turn} &nbsp;·&nbsp; AGENT ${e.agent_id}</div>
+    <div class="panel-head">TURN ${e.turn} &nbsp;·&nbsp; AGENT ${e.agent_id}</div>
 
     <div class="field">
       <div class="fl">action</div>
       <div class="fv"><span class="badge">${esc(act.tool_called || '—')}</span></div>
     </div>
 
-    <div class="field">
-      <div class="fl">arguments</div>
-      <div class="fv">${argsHtml}</div>
-    </div>
+    ${argsHtml}
+    ${bubbleHtml}
 
     <div class="field">
       <div class="fl">result</div>
       <div class="fv">${esc(e.result || '—')}</div>
     </div>
 
-    ${msgHtml}
-
     <div class="field">
-      <div class="fl">reward this turn</div>
+      <div class="fl">reward</div>
       <div class="reward ${rewardCls}">${rewardSign}${r.toFixed(3)}</div>
     </div>
 
     <div class="field">
-      <div class="fl">agent ${e.agent_id} cumulative reward</div>
-      <div class="fv">${cumReward >= 0 ? '+' : ''}${cumReward.toFixed(3)}</div>
+      <div class="fl">agent ${e.agent_id} cumulative</div>
+      <div class="fv">${cumSign}${cumR.toFixed(2)}</div>
     </div>
 
     ${reasonHtml}
 
     <div class="field">
       <div class="fl">position after</div>
-      <div class="fv">${pos ? fmtPos(pos) : '—'}</div>
+      <div class="fv">${pos ? `(${pos.join(', ')})` : '—'}</div>
     </div>
 
     <div class="field">
       <div class="fl">inventory after</div>
       <div class="fv">${inv.length ? inv.join(', ') : 'empty'}</div>
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Moments sidebar ───────────────────────────────────────────────────────────
-function renderMomentsList() {
-  const list = document.getElementById('momentsList');
+// ── Key moments sidebar ────────────────────────────────────────────────────────
+function renderMoments() {
+  const el = document.getElementById('momentsList');
   if (!moments.length) {
-    list.innerHTML = '<div class="no-data">None detected yet.</div>';
+    el.innerHTML = '<div class="no-data">None detected.</div>';
     return;
   }
-  list.innerHTML = moments.map(m => `
+  el.innerHTML = moments.map(m => `
     <div class="mi mi-${m.type} ${currentTurn === m.idx ? 'active' : ''}"
          onclick="goTo(${m.idx})">
       <div class="mi-turn">turn ${m.turn}</div>
-      <div class="mi-label">${momentIcon(m.type)} ${esc(m.label)}</div>
+      <div>${mIcon(m.type)} ${esc(m.label)}</div>
     </div>`).join('');
 }
 
-// ── Navigation ────────────────────────────────────────────────────────────────
+// ── Navigation ─────────────────────────────────────────────────────────────────
 function goTo(idx) {
   currentTurn = Math.max(0, Math.min(maxTurn, +idx));
   document.getElementById('slider').value = currentTurn;
+  document.getElementById('turnLabel').textContent =
+    currentTurn === 0 ? 'initial' : `${currentTurn} / ${maxTurn}`;
 
-  const lbl = currentTurn === 0
-    ? 'initial state'
-    : `${currentTurn} / ${maxTurn}`;
-  document.getElementById('turnLabel').textContent = lbl;
-
-  document.getElementById('btnPrev').disabled  = currentTurn === 0;
-  document.getElementById('btnFirst').disabled = currentTurn === 0;
-  document.getElementById('btnNext').disabled  = currentTurn === maxTurn;
-  document.getElementById('btnLast').disabled  = currentTurn === maxTurn;
+  const atStart = currentTurn === 0;
+  const atEnd   = currentTurn === maxTurn;
+  document.getElementById('btnFirst').disabled = atStart;
+  document.getElementById('btnPrev').disabled  = atStart;
+  document.getElementById('btnNext').disabled  = atEnd;
+  document.getElementById('btnLast').disabled  = atEnd;
 
   renderGrid(currentTurn);
+  renderChart(currentTurn);
+  renderSummary(currentTurn);
   renderInfo(currentTurn);
-  renderMomentsList();
+  renderMoments();
 }
 
 function step(d) { goTo(currentTurn + d); }
 
-document.addEventListener('keydown', e => {
-  if (e.target.tagName === 'INPUT') return;
-  if (e.key === 'ArrowLeft')  step(-1);
-  if (e.key === 'ArrowRight') step(+1);
-  if (e.key === 'Home')       goTo(0);
-  if (e.key === 'End')        goTo(maxTurn);
+document.addEventListener('keydown', ev => {
+  if (ev.target.tagName === 'INPUT') return;
+  if (ev.key === 'ArrowLeft')  { ev.preventDefault(); step(-1); }
+  if (ev.key === 'ArrowRight') { ev.preventDefault(); step(+1); }
+  if (ev.key === 'Home')       { ev.preventDefault(); goTo(0); }
+  if (ev.key === 'End')        { ev.preventDefault(); goTo(maxTurn); }
 });
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-function clone(o)    { return JSON.parse(JSON.stringify(o)); }
-function esc(s)      { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function fmtPos(p)   { return Array.isArray(p) ? `(${p[0]}, ${p[1]})` : String(p); }
-function momentIcon(t) { return {key:'🗝',door:'🔓',exit:'🏁',msg:'💬'}[t] || '·'; }
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function clone(o)  { return JSON.parse(JSON.stringify(o)); }
+function round3(v) { return Math.round(v * 1000) / 1000; }
+function esc(s)    {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function mIcon(t)  { return {key:'🗝',door:'🔓',exit:'🏁',msg:'💬'}[t] || '·'; }
 
-// ── Boot ──────────────────────────────────────────────────────────────────────
+// ── Boot ───────────────────────────────────────────────────────────────────────
 (async () => {
-  const detail = document.getElementById('loading-detail');
+  const ld2 = document.getElementById('ld2');
+  let raw;
   try {
     const res = await fetch('game_log.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status} — make sure game_log.json is in the same folder`);
-    log = await res.json();
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    raw = await res.json();
   } catch (err) {
-    document.getElementById('loading').innerHTML =
-      `<div style="color:#dc2626">⚠ ${esc(err.message)}</div>
-       <div style="font-size:11px;color:var(--dim);margin-top:6px">Open this file via a local server or place game_log.json alongside viewer.html</div>`;
+    document.getElementById('loading').innerHTML = `
+      <div style="color:#dc2626">⚠ ${esc(err.message)}</div>
+      <div style="font-size:11px;color:var(--dim2);margin-top:6px">
+        Serve this folder locally:<br>
+        <code>python -m http.server</code>
+      </div>`;
     return;
   }
 
-  // Filter out error entries (they lack next_state)
-  validLog = log.filter(e => e.next_state);
-  detail.textContent = `${validLog.length} turns loaded`;
+  validLog = raw.filter(e => e.next_state);
+  ld2.textContent = `${validLog.length} turns loaded`;
 
   worldStates = buildWorldStates(validLog);
+  cumRewards  = buildCumulativeRewards(validLog);
   moments     = detectMoments(validLog);
   maxTurn     = validLog.length;
 
-  const slider = document.getElementById('slider');
-  slider.max   = maxTurn;
+  document.getElementById('slider').max = maxTurn;
 
   document.getElementById('loading').style.display = 'none';
   document.getElementById('app').style.display     = 'grid';
 
-  renderMomentsList();
   goTo(0);
 })();
 </script>
