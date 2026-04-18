@@ -1,5 +1,6 @@
 import json
 import copy
+import sys
 from dungeon import DungeonWorld, KEY, LOCKED_DOOR, EXIT
 from agents import run_agent_turn
 
@@ -95,7 +96,7 @@ def print_turn(turn_num, result, reward):
 # Main game loop
 # ---------------------------------------------------------------------------
 
-def run_game():
+def run_game(output_file="game_log.json"):
     world        = DungeonWorld()
     message_inbox = {}
     histories    = {1: [], 2: []}
@@ -190,10 +191,10 @@ def run_game():
     print()
 
     # --- save log ---
-    with open("game_log.json", "w") as f:
+    with open(output_file, "w") as f:
         json.dump(game_log, f, indent=2)
-    print("Game log saved to game_log.json")
+    print(f"Game log saved to {output_file}")
 
 
 if __name__ == "__main__":
-    run_game()
+    run_game(sys.argv[1] if len(sys.argv) > 1 else "game_log.json")
