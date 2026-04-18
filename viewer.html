@@ -137,7 +137,17 @@ button:disabled { opacity: 0.25; cursor: default; }
   flex: 1;
   accent-color: var(--accent);
 }
-.turn-label { font-size: 11px; color: var(--dim2); white-space: nowrap; }
+.turn-label  { font-size: 11px; color: var(--dim2); white-space: nowrap; }
+.speed-label { font-size: 10px; color: var(--dim);  margin-right: 2px; }
+.speed-opt {
+  font-size: 11px;
+  color: var(--dim2);
+  cursor: pointer;
+  padding: 2px 5px;
+  border: 1px solid transparent;
+}
+.speed-opt:hover  { color: var(--text); }
+.speed-opt.active { color: var(--accent); border-color: var(--border); }
 
 /* ── col 2: info ───────────────────────────────────────────────────────────── */
 .col-info {
@@ -371,13 +381,20 @@ button:disabled { opacity: 0.25; cursor: default; }
     <div class="controls">
       <div class="btn-row">
         <button id="btnFirst" onclick="goTo(0)">|◀</button>
-        <button id="btnPrev"  onclick="step(-1)">◀ prev</button>
-        <button id="btnNext"  onclick="step(+1)">next ▶</button>
+        <button id="btnPrev"  onclick="stepAndPause(-1)">◀ prev</button>
+        <button id="btnPlay"  onclick="togglePlay()">▶ play</button>
+        <button id="btnNext"  onclick="stepAndPause(+1)">next ▶</button>
         <button id="btnLast"  onclick="goTo(maxTurn)">▶|</button>
       </div>
       <div class="btn-row">
-        <input type="range" id="slider" min="0" value="0" oninput="goTo(+this.value)">
+        <input type="range" id="slider" min="0" value="0" oninput="pause(); goTo(+this.value)">
         <span class="turn-label" id="turnLabel">—</span>
+      </div>
+      <div class="btn-row">
+        <span class="speed-label">speed</span>
+        <span class="speed-opt"        data-ms="1500" onclick="setSpeed(this)">slow</span>
+        <span class="speed-opt active" data-ms="800"  onclick="setSpeed(this)">normal</span>
+        <span class="speed-opt"        data-ms="300"  onclick="setSpeed(this)">fast</span>
       </div>
     </div>
   </div>
@@ -821,6 +838,42 @@ function renderMoments() {
     </div>`).join('');
 }
 
+// ── Auto-play ──────────────────────────────────────────────────────────────────
+let playTimer   = null;
+let playInterval = 800;
+
+function togglePlay() {
+  playTimer ? pause() : play();
+}
+
+function play() {
+  if (currentTurn >= maxTurn) return;
+  document.getElementById('btnPlay').textContent = '⏸ pause';
+  playTimer = setInterval(() => {
+    if (currentTurn >= maxTurn) { pause(); return; }
+    goTo(currentTurn + 1);
+  }, playInterval);
+}
+
+function pause() {
+  clearInterval(playTimer);
+  playTimer = null;
+  document.getElementById('btnPlay').textContent = '▶ play';
+}
+
+function stepAndPause(d) {
+  pause();
+  goTo(currentTurn + d);
+}
+
+function setSpeed(el) {
+  playInterval = +el.dataset.ms;
+  document.querySelectorAll('.speed-opt').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  // restart the timer at the new interval if already playing
+  if (playTimer) { pause(); play(); }
+}
+
 // ── Navigation ─────────────────────────────────────────────────────────────────
 function goTo(idx) {
   currentTurn = Math.max(0, Math.min(maxTurn, +idx));
@@ -834,6 +887,7 @@ function goTo(idx) {
   document.getElementById('btnPrev').disabled  = atStart;
   document.getElementById('btnNext').disabled  = atEnd;
   document.getElementById('btnLast').disabled  = atEnd;
+  if (atEnd && playTimer) pause();
 
   renderGrid(currentTurn);
   renderChart(currentTurn);
