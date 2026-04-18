@@ -295,6 +295,59 @@ button:disabled { opacity: 0.25; cursor: default; }
 
 .no-data { font-size: 12px; color: var(--dim2); font-style: italic; }
 
+/* Game summary screen */
+.summary-screen { display: flex; flex-direction: column; gap: 16px; }
+.summary-screen .panel-head { font-size: 13px; letter-spacing: 3px; }
+.agent-cards { display: flex; gap: 10px; }
+.agent-card {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.agent-card.a1 { background: #eff6ff; border-color: #bfdbfe; }
+.agent-card.a2 { background: #fff7ed; border-color: #fed7aa; }
+.ac-name { font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.ac-name.a1 { color: #1d4ed8; }
+.ac-name.a2 { color: #c2410c; }
+.ac-reward { font-size: 22px; font-weight: 700; line-height: 1; margin: 2px 0; }
+.ac-reward.a1 { color: #2563eb; }
+.ac-reward.a2 { color: #ea580c; }
+.ac-row { font-size: 11px; color: var(--dim2); }
+.ac-row span { color: var(--text); font-weight: 600; }
+.summary-events { display: flex; flex-direction: column; gap: 4px; }
+.se-item {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--text);
+  padding: 3px 0;
+  border-bottom: 1px solid var(--border);
+}
+.se-item:last-child { border-bottom: none; }
+.se-turn { font-size: 10px; color: var(--dim2); min-width: 44px; }
+.summary-stats { display: flex; flex-direction: column; gap: 5px; }
+.ss-row { display: flex; justify-content: space-between; font-size: 12px; }
+.ss-label { color: var(--dim2); }
+.ss-val   { font-weight: 600; color: var(--text); }
+.btn-watch {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+.btn-watch:hover { background: #1d4ed8; }
+
 /* Narrative section */
 .narrative-block {
   background: #f0f4f8;
@@ -977,13 +1030,79 @@ function renderInfo(idx) {
   const panel = document.getElementById('infoPanel');
 
   if (idx === 0) {
-    const ws = worldStates[0];
+    // ── compute summary stats from full log ──
+    const fmtR = v => `${v >= 0 ? '+' : ''}${v.toFixed(2)}`;
+
+    // Per-agent totals
+    const agentData = {};
+    for (const ag of [1, 2]) {
+      const entries = validLog.filter(e => e.agent_id === ag);
+      const totalR  = round3(entries.reduce((s, e) => s + (e.reward || 0), 0));
+      const reachedExit = entries.some(e => (e.reward || 0) >= 9.5);
+
+      const toolCounts = {};
+      for (const e of entries) {
+        const t = (e.action && e.action.tool_called) || '?';
+        toolCounts[t] = (toolCounts[t] || 0) + 1;
+      }
+      const topTool = Object.entries(toolCounts).sort((a,b) => b[1]-a[1])[0] || ['—', 0];
+
+      agentData[ag] = { totalR, reachedExit, turns: entries.length, topTool, toolCounts };
+    }
+
+    // Door unlocked?
+    const doorUnlocked = moments.some(m => m.type === 'door');
+    const bothExit     = agentData[1].reachedExit && agentData[2].reachedExit;
+    const outcome      = bothExit ? 'Both agents reached the exit'
+                       : agentData[1].reachedExit ? 'Agent 1 reached the exit'
+                       : agentData[2].reachedExit ? 'Agent 2 reached the exit'
+                       : 'Neither agent reached the exit';
+
+    // Key moments list (up to 8, most informative)
+    const eventsHtml = moments.slice(0, 8).map(m =>
+      `<div class="se-item">
+        <span class="se-turn">turn ${m.turn}</span>
+        <span>${mIcon(m.type)} ${esc(m.label)}</span>
+      </div>`
+    ).join('');
+
     panel.innerHTML = `
-      <div class="panel-head">INITIAL STATE</div>
-      <div class="field"><div class="fl">agent 1</div><div class="fv">position (${ws.a1.join(', ')})</div></div>
-      <div class="field"><div class="fl">agent 2</div><div class="fv">position (${ws.a2.join(', ')})</div></div>
-      <div class="field"><div class="fl">world</div>
-        <div class="fv">Key present · Door locked · ${validLog.length} turns logged</div></div>`;
+      <div class="summary-screen">
+        <div class="panel-head">GAME SUMMARY</div>
+
+        <div class="agent-cards">
+          <div class="agent-card a1">
+            <div class="ac-name a1">AGENT 1</div>
+            <div class="ac-reward a1">${fmtR(agentData[1].totalR)}</div>
+            <div class="ac-row">exit <span>${agentData[1].reachedExit ? 'YES ✓' : 'no'}</span></div>
+            <div class="ac-row">turns <span>${agentData[1].turns}</span></div>
+            <div class="ac-row">top tool <span>${agentData[1].topTool[0]} ×${agentData[1].topTool[1]}</span></div>
+          </div>
+          <div class="agent-card a2">
+            <div class="ac-name a2">AGENT 2</div>
+            <div class="ac-reward a2">${fmtR(agentData[2].totalR)}</div>
+            <div class="ac-row">exit <span>${agentData[2].reachedExit ? 'YES ✓' : 'no'}</span></div>
+            <div class="ac-row">turns <span>${agentData[2].turns}</span></div>
+            <div class="ac-row">top tool <span>${agentData[2].topTool[0]} ×${agentData[2].topTool[1]}</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="fl" style="margin-bottom:7px">KEY EVENTS</div>
+          <div class="summary-events">${eventsHtml || '<div class="no-data">None detected.</div>'}</div>
+        </div>
+
+        <div>
+          <div class="fl" style="margin-bottom:7px">GAME STATS</div>
+          <div class="summary-stats">
+            <div class="ss-row"><span class="ss-label">Total turns</span><span class="ss-val">${validLog.length}</span></div>
+            <div class="ss-row"><span class="ss-label">Door unlocked</span><span class="ss-val">${doorUnlocked ? 'Yes' : 'No'}</span></div>
+            <div class="ss-row"><span class="ss-label">Outcome</span><span class="ss-val">${esc(outcome)}</span></div>
+          </div>
+        </div>
+
+        <button class="btn-watch" onclick="play(); goTo(1);">▶ Watch replay</button>
+      </div>`;
     return;
   }
 
