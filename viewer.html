@@ -687,29 +687,40 @@ function renderTrail(idx) {
 }
 
 // ── Reward chart ───────────────────────────────────────────────────────────────
+// Chart layout constants shared between renderChart and mouse handlers
+const CHART = { W:258, H:115, PL:28, PR:6, PT:8, PB:16 };
+// Derived helpers (set once cumRewards is available)
+let chartFns = null;
+
+function buildChartFns() {
+  if (!cumRewards) return;
+  const { a1, a2 } = cumRewards;
+  const n = a1.length;
+  const { W, H, PL, PR, PT, PB } = CHART;
+  const pw = W - PL - PR, ph = H - PT - PB;
+  const all  = [...a1, ...a2];
+  let minV = Math.min(...all, 0), maxV = Math.max(...all, 0);
+  if (maxV - minV < 1) { maxV += 0.5; minV -= 0.5; }
+  const range = maxV - minV;
+  chartFns = {
+    n, minV, maxV, range,
+    px:  i   => n <= 1 ? PL + pw/2 : PL + (i / (n-1)) * pw,
+    py:  val => PT + (1 - (val - minV) / range) * ph,
+    // invert px: SVG x → nearest turn index
+    xToIdx: x => Math.max(0, Math.min(n-1, Math.round((x - PL) / pw * (n-1)))),
+  };
+}
+
 function renderChart(idx) {
   const svgEl = document.getElementById('rewardChart');
   if (!cumRewards || maxTurn === 0) { svgEl.innerHTML = ''; return; }
 
+  buildChartFns();
   const { a1, a2 } = cumRewards;
-  const n = a1.length;  // maxTurn + 1
-
-  // Y range
-  const all  = [...a1, ...a2];
-  let minV   = Math.min(...all, 0);
-  let maxV   = Math.max(...all, 0);
-  if (maxV - minV < 1) { maxV += 0.5; minV -= 0.5; }
-  const range = maxV - minV;
-
-  // Layout
-  const W  = 258, H  = 115;
-  const PL = 28,  PR = 6, PT = 8, PB = 16;
-  const pw = W - PL - PR;
-  const ph = H - PT - PB;
-
-  const px  = i   => n <= 1 ? PL + pw/2 : PL + (i / (n-1)) * pw;
-  const py  = val => PT + (1 - (val - minV) / range) * ph;
-  const fmt = v   => `${v >= 0 ? '+' : ''}${v.toFixed(1)}`;
+  const { n, minV, maxV } = chartFns;
+  const { px, py } = chartFns;
+  const { W, H, PL, PR, PT, PB } = CHART;
+  const fmt = v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}`;
 
   function polyline(arr, color) {
     const pts = arr.map((v, i) => `${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' ');
@@ -743,8 +754,7 @@ function renderChart(idx) {
   const lbl1 = `<text x="${(mx+xOff).toFixed(1)}" y="${(y1c - 4).toFixed(1)}"
                       fill="#60a5fa" font-size="8" font-family="monospace"
                       text-anchor="${anchor}">${fmt(a1[idx])}</text>`;
-  // avoid overlapping labels when values are close
-  const sep  = Math.abs(y1c - y2c);
+  const sep   = Math.abs(y1c - y2c);
   const yOff2 = sep < 14 ? 12 : -4;
   const lbl2 = `<text x="${(mx+xOff).toFixed(1)}" y="${(y2c + yOff2).toFixed(1)}"
                       fill="#fb923c" font-size="8" font-family="monospace"
@@ -764,12 +774,80 @@ function renderChart(idx) {
                       fill="#3a3a3a" font-size="8" font-family="monospace"
                       text-anchor="middle">${n-1}</text>`;
 
+  // Transparent hit-area rect on top (mouse events handled in JS)
+  const hitRect = `<rect id="chartHit" x="${PL}" y="${PT}" width="${W-PL-PR}" height="${H-PT-PB}"
+                         fill="transparent" style="cursor:crosshair"/>`;
+
+  // Hover hairline + tooltip group (initially empty, updated by mouse handler)
+  const hoverGroup = `<g id="chartHover"></g>`;
+
   svgEl.innerHTML =
     zeroLine + marker +
     polyline(a2, '#ea580c') + polyline(a1, '#3b82f6') +
     dot1 + dot2 + lbl1 + lbl2 +
-    yMax + yMin + xL0 + xLN;
+    yMax + yMin + xL0 + xLN +
+    hoverGroup + hitRect;
 }
+
+// ── Chart mouse interaction ────────────────────────────────────────────────────
+(function attachChartEvents() {
+  const svgEl = document.getElementById('rewardChart');
+  const { W, H, PL, PR, PT, PB } = CHART;
+  const fmt = v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}`;
+
+  function svgX(ev) {
+    const rect = svgEl.getBoundingClientRect();
+    return (ev.clientX - rect.left) * (W / rect.width);
+  }
+
+  function showHover(ev) {
+    if (!chartFns) return;
+    const { a1, a2 } = cumRewards;
+    const { px, py, xToIdx } = chartFns;
+    const x   = svgX(ev);
+    const ti  = xToIdx(x);
+    const hx  = px(ti);
+    const y1h = py(a1[ti]);
+    const y2h = py(a2[ti]);
+
+    // Tooltip position: flip to left side when near right edge
+    const tipW = 68, tipH = 34, tipPad = 6;
+    const tipX = hx + tipPad + tipW > W - PR ? hx - tipPad - tipW : hx + tipPad;
+    const tipY = PT + 2;
+
+    const hairline = `<line x1="${hx.toFixed(1)}" y1="${PT}" x2="${hx.toFixed(1)}" y2="${H-PB}"
+                            stroke="#555" stroke-width="1" stroke-dasharray="2,2"/>`;
+    const hd1 = `<circle cx="${hx.toFixed(1)}" cy="${y1h.toFixed(1)}" r="3"
+                          fill="none" stroke="#60a5fa" stroke-width="1.5"/>`;
+    const hd2 = `<circle cx="${hx.toFixed(1)}" cy="${y2h.toFixed(1)}" r="3"
+                          fill="none" stroke="#fb923c" stroke-width="1.5"/>`;
+
+    const box  = `<rect x="${tipX.toFixed(1)}" y="${tipY}" width="${tipW}" height="${tipH}"
+                        rx="2" fill="#1a1a1a" stroke="#333" stroke-width="1"/>`;
+    const tTurn = `<text x="${(tipX+5).toFixed(1)}" y="${tipY+11}"
+                         fill="#666" font-size="8" font-family="monospace">turn ${ti}</text>`;
+    const tA1   = `<text x="${(tipX+5).toFixed(1)}" y="${tipY+21}"
+                         fill="#60a5fa" font-size="8" font-family="monospace">A1 ${fmt(a1[ti])}</text>`;
+    const tA2   = `<text x="${(tipX+5).toFixed(1)}" y="${tipY+31}"
+                         fill="#fb923c" font-size="8" font-family="monospace">A2 ${fmt(a2[ti])}</text>`;
+
+    const g = document.getElementById('chartHover');
+    if (g) g.innerHTML = hairline + hd1 + hd2 + box + tTurn + tA1 + tA2;
+  }
+
+  function clearHover() {
+    const g = document.getElementById('chartHover');
+    if (g) g.innerHTML = '';
+  }
+
+  svgEl.addEventListener('mousemove', showHover);
+  svgEl.addEventListener('mouseleave', clearHover);
+  svgEl.addEventListener('click', ev => {
+    if (!chartFns) return;
+    const ti = chartFns.xToIdx(svgX(ev));
+    goTo(ti);
+  });
+})();
 
 // ── Turn summary header ────────────────────────────────────────────────────────
 function renderSummary(idx) {
