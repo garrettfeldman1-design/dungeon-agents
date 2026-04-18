@@ -138,6 +138,16 @@ button:disabled { opacity: 0.25; cursor: default; }
   accent-color: var(--accent);
 }
 .turn-label  { font-size: 11px; color: var(--dim2); white-space: nowrap; }
+.fog-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--dim2);
+  cursor: pointer;
+  user-select: none;
+}
+.fog-toggle input { accent-color: var(--accent); cursor: pointer; }
 .speed-label { font-size: 10px; color: var(--dim);  margin-right: 2px; }
 .speed-opt {
   font-size: 11px;
@@ -365,6 +375,7 @@ button:disabled { opacity: 0.25; cursor: default; }
   <div class="col-grid">
     <div class="grid-wrap">
       <div class="dungeon-grid" id="grid"></div>
+      <svg id="fogSvg"   class="trail-svg" width="398" height="398"></svg>
       <svg id="trailSvg" class="trail-svg" width="398" height="398"></svg>
     </div>
 
@@ -395,6 +406,12 @@ button:disabled { opacity: 0.25; cursor: default; }
         <span class="speed-opt"        data-ms="1500" onclick="setSpeed(this)">slow</span>
         <span class="speed-opt active" data-ms="800"  onclick="setSpeed(this)">normal</span>
         <span class="speed-opt"        data-ms="300"  onclick="setSpeed(this)">fast</span>
+      </div>
+      <div class="btn-row">
+        <label class="fog-toggle">
+          <input type="checkbox" id="fogToggle" checked onchange="renderGrid(currentTurn)">
+          fog of war
+        </label>
       </div>
     </div>
   </div>
@@ -461,11 +478,13 @@ let maxTurn     = 0;
 // ── World state precomputation ─────────────────────────────────────────────────
 function buildWorldStates(entries) {
   const states = [];
+  // visited: Set of "r,c" strings for all cells either agent has stood on
   let s = {
     a1: [1,1], a2: [1,6],
     a1Trail: [], a2Trail: [],   // up to last 5 past positions
     keyPresent: true,
     doorLocked: true,
+    visited: ['1,1', '1,6'],   // array of "r,c" strings; clone-safe
   };
   states.push(clone(s));
 
@@ -487,6 +506,21 @@ function buildWorldStates(entries) {
     if (inv1.includes('KEY') && !inv0.includes('KEY')) s.keyPresent = false;
     // Door unlocked?
     if (typeof e.reward === 'number' && e.reward >= 4.5) s.doorLocked = false;
+    // Visited cells — accumulate both agents' next_state positions
+    if (pos) {
+      const key = `${pos[0]},${pos[1]}`;
+      if (!s.visited.includes(key)) s.visited = [...s.visited, key];
+    }
+    // Also mark cells visible to the acting agent (current cell + 4 neighbours)
+    // so "look" turns reveal the surroundings in the fog
+    const agPos = e.agent_id === 1 ? s.a1 : s.a2;
+    for (const [dr, dc] of [[0,0],[-1,0],[1,0],[0,-1],[0,1]]) {
+      const vr = agPos[0] + dr, vc = agPos[1] + dc;
+      if (vr >= 0 && vr < 8 && vc >= 0 && vc < 8) {
+        const vk = `${vr},${vc}`;
+        if (!s.visited.includes(vk)) s.visited = [...s.visited, vk];
+      }
+    }
     states.push(s);
   }
   return states;
@@ -595,7 +629,27 @@ function renderGrid(idx) {
       el.appendChild(div);
     }
   }
+  renderFog(idx);
   renderTrail(idx);
+}
+
+function renderFog(idx) {
+  const svg     = document.getElementById('fogSvg');
+  const enabled = document.getElementById('fogToggle').checked;
+  if (!enabled) { svg.innerHTML = ''; return; }
+
+  const visited = new Set(worldStates[idx].visited);
+  const rects   = [];
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (!visited.has(`${r},${c}`)) {
+        const x = c * STRIDE, y = r * STRIDE;
+        rects.push(`<rect x="${x}" y="${y}" width="48" height="48"
+                          fill="#0e0e0e" opacity="0.72"/>`);
+      }
+    }
+  }
+  svg.innerHTML = rects.join('');
 }
 
 function renderTrail(idx) {
