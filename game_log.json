@@ -1,0 +1,2160 @@
+[
+  {
+    "turn": 1,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        1,
+        1
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,1": "empty",
+        "0,1": "wall",
+        "2,1": "empty",
+        "1,0": "wall",
+        "1,2": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved right to (1, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        1,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,2": "empty",
+        "0,2": "wall",
+        "2,2": "empty",
+        "1,1": "empty",
+        "1,3": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 2,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        1,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,6": "empty",
+        "0,6": "wall",
+        "2,6": "empty",
+        "1,5": "empty",
+        "1,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "check_coordinates",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "You are at (1, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        1,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,6": "empty",
+        "0,6": "wall",
+        "2,6": "empty",
+        "1,5": "empty",
+        "1,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 3,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        1,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,2": "empty",
+        "0,2": "wall",
+        "2,2": "empty",
+        "1,1": "empty",
+        "1,3": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "south"
+      },
+      "reasoning": ""
+    },
+    "result": "Unknown direction 'south'.",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        1,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,2": "empty",
+        "0,2": "wall",
+        "2,2": "empty",
+        "1,1": "empty",
+        "1,3": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 4,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        1,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,6": "empty",
+        "0,6": "wall",
+        "2,6": "empty",
+        "1,5": "empty",
+        "1,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "south"
+      },
+      "reasoning": ""
+    },
+    "result": "Unknown direction 'south'.",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        1,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,6": "empty",
+        "0,6": "wall",
+        "2,6": "empty",
+        "1,5": "empty",
+        "1,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 5,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        1,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,2": "empty",
+        "0,2": "wall",
+        "2,2": "empty",
+        "1,1": "empty",
+        "1,3": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved down to (2, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        2,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,2": "empty",
+        "1,2": "empty",
+        "3,2": "empty",
+        "2,1": "empty",
+        "2,3": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 6,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        1,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,6": "empty",
+        "0,6": "wall",
+        "2,6": "empty",
+        "1,5": "empty",
+        "1,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (2, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        2,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,6": "empty",
+        "1,6": "empty",
+        "3,6": "empty",
+        "2,5": "wall",
+        "2,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 7,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        2,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,2": "empty",
+        "1,2": "empty",
+        "3,2": "empty",
+        "2,1": "empty",
+        "2,3": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved down to (3, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,2": "empty",
+        "2,2": "empty",
+        "4,2": "empty",
+        "3,1": "wall",
+        "3,3": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 8,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        2,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,6": "empty",
+        "1,6": "empty",
+        "3,6": "empty",
+        "2,5": "wall",
+        "2,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (3, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,6": "empty",
+        "2,6": "empty",
+        "4,6": "wall",
+        "3,5": "empty",
+        "3,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 9,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        3,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,2": "empty",
+        "2,2": "empty",
+        "4,2": "empty",
+        "3,1": "wall",
+        "3,3": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved right to (3, 3).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "LOCKED_DOOR",
+        "3,2": "empty",
+        "3,4": "KEY"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 10,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,6": "empty",
+        "2,6": "empty",
+        "4,6": "wall",
+        "3,5": "empty",
+        "3,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved left to (3, 5).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,5": "empty",
+        "2,5": "wall",
+        "4,5": "empty",
+        "3,4": "KEY",
+        "3,6": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 11,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "LOCKED_DOOR",
+        "3,2": "empty",
+        "3,4": "KEY"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved right to (3, 4).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "KEY",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 12,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,5": "empty",
+        "2,5": "wall",
+        "4,5": "empty",
+        "3,4": "KEY",
+        "3,6": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved left to (3, 4).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "KEY",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 13,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "KEY",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "pick_up_item",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "Agent 1 picked up the KEY.",
+    "reward": 0.9,
+    "next_state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [
+        "KEY"
+      ],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 14,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "look",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "Visible cells:\n  (3,4) [here]: empty floor\n  (2,4) [north]: empty floor\n  (4,4) [south]: empty floor\n  (3,3) [west]: empty floor\n  (3,5) [east]: empty floor",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 15,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [
+        "KEY"
+      ],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved left to (3, 3).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [
+        "KEY"
+      ],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "LOCKED_DOOR",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 16,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "pick_up_item",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "Nothing to pick up here.",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 17,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [
+        "KEY"
+      ],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "LOCKED_DOOR",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "use_item",
+      "tool_args": {
+        "item": "KEY",
+        "target": [
+          4,
+          3
+        ]
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 unlocked the door at (4, 3)!",
+    "reward": 4.9,
+    "next_state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "empty",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 18,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved left to (3, 3).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "empty",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 19,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "empty",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved down to (4, 3).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        4,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,3": "empty",
+        "3,3": "empty",
+        "5,3": "wall",
+        "4,2": "empty",
+        "4,4": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 20,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "empty",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved left to (3, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,2": "empty",
+        "2,2": "empty",
+        "4,2": "empty",
+        "3,1": "wall",
+        "3,3": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 21,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        4,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,3": "empty",
+        "3,3": "empty",
+        "5,3": "wall",
+        "4,2": "empty",
+        "4,4": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved right to (4, 4).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        4,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,4": "empty",
+        "3,4": "empty",
+        "5,4": "empty",
+        "4,3": "empty",
+        "4,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 22,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,2": "empty",
+        "2,2": "empty",
+        "4,2": "empty",
+        "3,1": "wall",
+        "3,3": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "up"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved up to (2, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        2,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,2": "empty",
+        "1,2": "empty",
+        "3,2": "empty",
+        "2,1": "empty",
+        "2,3": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 23,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        4,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,4": "empty",
+        "3,4": "empty",
+        "5,4": "empty",
+        "4,3": "empty",
+        "4,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved down to (5, 4).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,4": "empty",
+        "4,4": "empty",
+        "6,4": "empty",
+        "5,3": "wall",
+        "5,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 24,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        2,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,2": "empty",
+        "1,2": "empty",
+        "3,2": "empty",
+        "2,1": "empty",
+        "2,3": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved left to (2, 1).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        2,
+        1
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,1": "empty",
+        "1,1": "empty",
+        "3,1": "wall",
+        "2,0": "wall",
+        "2,2": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 25,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        5,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,4": "empty",
+        "4,4": "empty",
+        "6,4": "empty",
+        "5,3": "wall",
+        "5,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved right to (5, 5).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,5": "empty",
+        "4,5": "empty",
+        "6,5": "wall",
+        "5,4": "empty",
+        "5,6": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 26,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        2,
+        1
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,1": "empty",
+        "1,1": "empty",
+        "3,1": "wall",
+        "2,0": "wall",
+        "2,2": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "up"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved up to (1, 1).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        1,
+        1
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,1": "empty",
+        "0,1": "wall",
+        "2,1": "empty",
+        "1,0": "wall",
+        "1,2": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 27,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        5,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,5": "empty",
+        "4,5": "empty",
+        "6,5": "wall",
+        "5,4": "empty",
+        "5,6": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved right to (5, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 28,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        1,
+        1
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,1": "empty",
+        "0,1": "wall",
+        "2,1": "empty",
+        "1,0": "wall",
+        "1,2": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved right to (1, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        1,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,2": "empty",
+        "0,2": "wall",
+        "2,2": "empty",
+        "1,1": "empty",
+        "1,3": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 29,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved down to (6, 6).",
+    "reward": 9.9,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 30,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        1,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "1,2": "empty",
+        "0,2": "wall",
+        "2,2": "empty",
+        "1,1": "empty",
+        "1,3": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (2, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        2,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,2": "empty",
+        "1,2": "empty",
+        "3,2": "empty",
+        "2,1": "empty",
+        "2,3": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 31,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "look",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "Visible cells:\n  (6,6) [here]: EXIT\n  (5,6) [north]: empty floor\n  (7,6) [south]: wall\n  (6,5) [west]: wall\n  (6,7) [east]: wall",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 32,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        2,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "2,2": "empty",
+        "1,2": "empty",
+        "3,2": "empty",
+        "2,1": "empty",
+        "2,3": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (3, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,2": "empty",
+        "2,2": "empty",
+        "4,2": "empty",
+        "3,1": "wall",
+        "3,3": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 33,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "check_coordinates",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "You are at (6, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 34,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,2": "empty",
+        "2,2": "empty",
+        "4,2": "empty",
+        "3,1": "wall",
+        "3,3": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (4, 2).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        4,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,2": "empty",
+        "3,2": "empty",
+        "5,2": "wall",
+        "4,1": "empty",
+        "4,3": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 35,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "send_message",
+      "tool_args": {
+        "recipient": 2,
+        "message": "I have reached the EXIT at position (6, 6)! The path is clear after unlocking the door with the KEY at (3, 3)."
+      },
+      "reasoning": ""
+    },
+    "result": "Message delivered to Agent 2.",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 36,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        4,
+        2
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,2": "empty",
+        "3,2": "empty",
+        "5,2": "wall",
+        "4,1": "empty",
+        "4,3": "empty"
+      },
+      "messages_received": [
+        {
+          "from": 1,
+          "text": "I have reached the EXIT at position (6, 6)! The path is clear after unlocking the door with the KEY at (3, 3)."
+        }
+      ]
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved right to (4, 3).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        4,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,3": "empty",
+        "3,3": "empty",
+        "5,3": "wall",
+        "4,2": "empty",
+        "4,4": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 37,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "look",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "Visible cells:\n  (6,6) [here]: EXIT\n  (5,6) [north]: empty floor\n  (7,6) [south]: wall\n  (6,5) [west]: wall\n  (6,7) [east]: wall",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 38,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        4,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,3": "empty",
+        "3,3": "empty",
+        "5,3": "wall",
+        "4,2": "empty",
+        "4,4": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "up"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved up to (3, 3).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "empty",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 39,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "check_inventory",
+      "tool_args": {},
+      "reasoning": ""
+    },
+    "result": "Your inventory is empty.",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 40,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        3
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,3": "empty",
+        "2,3": "wall",
+        "4,3": "empty",
+        "3,2": "empty",
+        "3,4": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved right to (3, 4).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 41,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "up"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved up to (5, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 42,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        4
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,4": "empty",
+        "2,4": "empty",
+        "4,4": "empty",
+        "3,3": "empty",
+        "3,5": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved right to (3, 5).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        3,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,5": "empty",
+        "2,5": "wall",
+        "4,5": "empty",
+        "3,4": "empty",
+        "3,6": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 43,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved down to (6, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 44,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        3,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "3,5": "empty",
+        "2,5": "wall",
+        "4,5": "empty",
+        "3,4": "empty",
+        "3,6": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (4, 5).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        4,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,5": "empty",
+        "3,5": "empty",
+        "5,5": "empty",
+        "4,4": "empty",
+        "4,6": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 45,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "send_message",
+      "tool_args": {
+        "recipient": 2,
+        "message": "I am at the EXIT. The goal has been reached! To summarize the solution: Start at (1,1), move right and down to (3,3), then move right to (3,4) to pick up the KEY, return to (3,3) and use the KEY on the LOCKED_DOOR at (4,3), then navigate right and down through the open corridor to reach the EXIT at (6,6)."
+      },
+      "reasoning": ""
+    },
+    "result": "Message delivered to Agent 2.",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 46,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        4,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "4,5": "empty",
+        "3,5": "empty",
+        "5,5": "empty",
+        "4,4": "empty",
+        "4,6": "wall"
+      },
+      "messages_received": [
+        {
+          "from": 1,
+          "text": "I am at the EXIT. The goal has been reached! To summarize the solution: Start at (1,1), move right and down to (3,3), then move right to (3,4) to pick up the KEY, return to (3,3) and use the KEY on the LOCKED_DOOR at (4,3), then navigate right and down through the open corridor to reach the EXIT at (6,6)."
+        }
+      ]
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (5, 5).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,5": "empty",
+        "4,5": "empty",
+        "6,5": "wall",
+        "5,4": "empty",
+        "5,6": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 47,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "up"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved up to (5, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 48,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        5,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,5": "empty",
+        "4,5": "empty",
+        "6,5": "wall",
+        "5,4": "empty",
+        "5,6": "empty"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "right"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved right to (5, 6).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 49,
+    "agent_id": 1,
+    "state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "left"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 1 moved left to (5, 5).",
+    "reward": -0.1,
+    "next_state": {
+      "position": [
+        5,
+        5
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,5": "empty",
+        "4,5": "empty",
+        "6,5": "wall",
+        "5,4": "empty",
+        "5,6": "empty"
+      },
+      "messages_received": []
+    }
+  },
+  {
+    "turn": 50,
+    "agent_id": 2,
+    "state": {
+      "position": [
+        5,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "5,6": "empty",
+        "4,6": "wall",
+        "6,6": "EXIT",
+        "5,5": "empty",
+        "5,7": "wall"
+      },
+      "messages_received": []
+    },
+    "action": {
+      "tool_called": "move",
+      "tool_args": {
+        "direction": "down"
+      },
+      "reasoning": ""
+    },
+    "result": "Agent 2 moved down to (6, 6).",
+    "reward": 9.9,
+    "next_state": {
+      "position": [
+        6,
+        6
+      ],
+      "inventory": [],
+      "visible_cells": {
+        "6,6": "EXIT",
+        "5,6": "empty",
+        "7,6": "wall",
+        "6,5": "wall",
+        "6,7": "wall"
+      },
+      "messages_received": []
+    }
+  }
+]
