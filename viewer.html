@@ -7,22 +7,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:     #0e0e0e;
-  --bg2:    #151515;
-  --bg3:    #1c1c1c;
-  --border: #242424;
-  --text:   #c0c0c0;
-  --dim:    #4a4a4a;
-  --dim2:   #666;
+  --bg:     #0d1117;
+  --bg2:    #161b22;
+  --bg3:    #1c2128;
+  --border: #30363d;
+  --text:   #c9d1d9;
+  --dim:    #484f58;
+  --dim2:   #6e7681;
   --accent: #4a9eff;
-  --a1:     #2563eb;
-  --a1hi:   #60a5fa;
-  --a2:     #c2410c;
-  --a2hi:   #fb923c;
-  --key-c:  #ca8a04;
-  --door-c: #b91c1c;
-  --exit-c: #15803d;
-  --msg-c:  #6d28d9;
+  --a1:     #4a9eff;
+  --a1hi:   #79b8ff;
+  --a2:     #ff7b2e;
+  --a2hi:   #ffab70;
+  --key-c:  #f0a500;
+  --door-c: #8b0000;
+  --exit-c: #1a7a1a;
+  --msg-c:  #7c3aed;
 }
 
 body {
@@ -91,14 +91,15 @@ header h1  { font-size: 12px; letter-spacing: 3px; color: var(--accent); }
   justify-content: center;
   font-size: 16px;
   font-weight: 700;
-  border: 1px solid #111;
+  border: 1px solid #21262d;
   user-select: none;
 }
-.c-empty { background: #111; color: #252525; }
-.c-wall  { background: #1d1d1d; color: #303030; border-color: #1a1a1a; }
-.c-key   { background: #130f00; color: var(--key-c);  border-color: #2e2000; }
-.c-door  { background: #120000; color: var(--door-c); border-color: #280000; }
-.c-exit  { background: #001108; color: var(--exit-c); border-color: #001e10; }
+.c-empty         { background: #161b22; color: #2d333b; }
+.c-empty-visited { background: #1c2a3a; color: #2d3f52; }
+.c-wall          { background: #0a0a0a; color: #141414; border-color: #111; }
+.c-key   { background: #1a1200; color: var(--key-c);  border-color: #3a2800; }
+.c-door  { background: #160000; color: var(--door-c); border-color: #330000; }
+.c-exit  { background: #001400; color: var(--exit-c); border-color: #002800; }
 .c-a1    { background: var(--a1); color: #fff; border-color: var(--a1hi); }
 .c-a2    { background: var(--a2); color: #fff; border-color: var(--a2hi); }
 .c-both  { background: #5b21b6; color: #fff; border-color: #8b5cf6; }
@@ -391,7 +392,7 @@ button:disabled { opacity: 0.25; cursor: default; }
     </div>
 
     <div class="legend">
-      <div class="li"><span class="sw" style="background:#1d1d1d;border-color:#1a1a1a"></span>wall</div>
+      <div class="li"><span class="sw" style="background:#0a0a0a;border-color:#111"></span>wall</div>
       <div class="li"><span class="sw" style="background:#130f00;border-color:#2e2000"></span>key</div>
       <div class="li"><span class="sw" style="background:#120000;border-color:#280000"></span>door</div>
       <div class="li"><span class="sw" style="background:#001108;border-color:#001e10"></span>exit</div>
@@ -442,7 +443,7 @@ button:disabled { opacity: 0.25; cursor: default; }
     <div class="chart-section">
       <div class="chart-title">CUMULATIVE REWARD</div>
       <svg id="rewardChart" width="258" height="115"
-           style="display:block;background:#0e0e0e"></svg>
+           style="display:block;background:#0d1117"></svg>
       <div class="chart-legend">
         <span class="cl-a1">▬ agent 1</span>
         <span class="cl-a2">▬ agent 2</span>
@@ -632,11 +633,14 @@ function renderGrid(idx) {
   const grid  = buildGridData(idx);
   const el    = document.getElementById('grid');
   el.innerHTML = '';
+  const visited = new Set(worldStates[idx].visited);
   for (let r = 0; r < 8; r++) {
     for (let c = 0; c < 8; c++) {
       const ct  = grid[r][c];
       const div = document.createElement('div');
-      div.className   = `cell ${CLS[ct]}`;
+      const baseCls = CLS[ct] === 'c-empty' && visited.has(`${r},${c}`)
+        ? 'c-empty-visited' : CLS[ct];
+      div.className   = `cell ${baseCls}`;
       div.textContent = SYM[ct];
       div.title       = `(${r},${c})  ${TTL[ct]}`;
       el.appendChild(div);
@@ -658,7 +662,7 @@ function renderFog(idx) {
       if (!visited.has(`${r},${c}`)) {
         const x = c * STRIDE, y = r * STRIDE;
         rects.push(`<rect x="${x}" y="${y}" width="48" height="48"
-                          fill="#0e0e0e" opacity="0.72"/>`);
+                          fill="#0d1117" opacity="0.75"/>`);
       }
     }
   }
