@@ -7,21 +7,21 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:     #0d1117;
-  --bg2:    #161b22;
-  --bg3:    #1c2128;
-  --border: #30363d;
-  --text:   #c9d1d9;
-  --dim:    #484f58;
-  --dim2:   #6e7681;
-  --accent: #4a9eff;
-  --a1:     #4a9eff;
-  --a1hi:   #79b8ff;
-  --a2:     #ff7b2e;
-  --a2hi:   #ffab70;
-  --key-c:  #f0a500;
-  --door-c: #8b0000;
-  --exit-c: #1a7a1a;
+  --bg:     #f6f8fa;
+  --bg2:    #ffffff;
+  --bg3:    #eaeef2;
+  --border: #d0d7de;
+  --text:   #24292f;
+  --dim:    #8c959f;
+  --dim2:   #57606a;
+  --accent: #0969da;
+  --a1:     #2563eb;
+  --a1hi:   #1d4ed8;
+  --a2:     #ea580c;
+  --a2hi:   #c2410c;
+  --key-c:  #b45309;
+  --door-c: #dc2626;
+  --exit-c: #16a34a;
   --msg-c:  #7c3aed;
 }
 
@@ -91,18 +91,18 @@ header h1  { font-size: 12px; letter-spacing: 3px; color: var(--accent); }
   justify-content: center;
   font-size: 16px;
   font-weight: 700;
-  border: 1px solid #2a3f5f;
+  border: 1px solid #b6c2cd;
   user-select: none;
 }
-.c-empty         { background: #0d1117; color: #1e2d3d; }
-.c-empty-visited { background: #1e3a5f; color: #3a6090; }
-.c-wall          { background: #050505; color: #050505; border: none; }
-.c-key   { background: #ffd700; color: #1a1000; border-color: #b8960a; }
-.c-door  { background: #cc2200; color: #fff;    border-color: #991a00; }
-.c-exit  { background: #00aa44; color: #fff;    border-color: #007a30; }
+.c-empty         { background: #eaeef2; color: #c8d0d8; }
+.c-empty-visited { background: #dbeafe; color: #93c5fd; }
+.c-wall          { background: #24292f; color: #24292f; border: none; }
+.c-key   { background: #f59e0b; color: #fff; border-color: #d97706; }
+.c-door  { background: #dc2626; color: #fff; border-color: #b91c1c; }
+.c-exit  { background: #16a34a; color: #fff; border-color: #15803d; }
 .c-a1    { background: var(--a1); color: #fff; border-color: var(--a1hi); font-size: 20px; }
 .c-a2    { background: var(--a2); color: #fff; border-color: var(--a2hi); font-size: 20px; }
-.c-both  { background: #5b21b6; color: #fff; border-color: #8b5cf6; font-size: 20px; }
+.c-both  { background: #7c3aed; color: #fff; border-color: #6d28d9; font-size: 20px; }
 
 /* SVG trail overlay sits above cells, ignores mouse */
 .trail-svg {
@@ -118,7 +118,7 @@ header h1  { font-size: 12px; letter-spacing: 3px; color: var(--accent); }
   flex-wrap: wrap;
 }
 .li { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--dim2); }
-.sw { width: 11px; height: 11px; border: 1px solid #333; flex-shrink: 0; }
+.sw { width: 11px; height: 11px; border: 1px solid #b6c2cd; flex-shrink: 0; }
 
 /* Controls */
 .controls { display: flex; flex-direction: column; gap: 6px; }
@@ -132,7 +132,7 @@ button {
   font-size: 11px;
   cursor: pointer;
 }
-button:hover   { background: #222; border-color: #3a3a3a; }
+button:hover   { background: #d0d7de; border-color: #8c959f; }
 button:disabled { opacity: 0.25; cursor: default; }
 #slider {
   flex: 1;
@@ -227,15 +227,15 @@ button:disabled { opacity: 0.25; cursor: default; }
 }
 
 .reward     { font-size: 18px; font-weight: 700; }
-.reward-pos { color: #4ade80; }
+.reward-pos { color: #16a34a; }
 .reward-neg { color: var(--dim2); }
 
 .reasoning {
-  background: var(--bg2);
+  background: var(--bg3);
   border-left: 2px solid var(--border);
   padding: 7px 10px;
   font-size: 11px;
-  color: #585858;
+  color: #57606a;
   line-height: 1.7;
   max-height: 130px;
   overflow-y: auto;
@@ -249,16 +249,16 @@ button:disabled { opacity: 0.25; cursor: default; }
   border-left: 3px solid;
   line-height: 1.5;
 }
-.hl-key  { border-color: var(--key-c);  background: #130f00; color: var(--key-c); }
-.hl-door { border-color: var(--door-c); background: #120000; color: var(--door-c); }
-.hl-exit { border-color: var(--exit-c); background: #001108; color: var(--exit-c); }
-.hl-msg  { border-color: var(--msg-c);  background: #0d0520; color: #a78bfa; }
+.hl-key  { border-color: var(--key-c);  background: #fef3c7; color: var(--key-c); }
+.hl-door { border-color: var(--door-c); background: #fee2e2; color: var(--door-c); }
+.hl-exit { border-color: var(--exit-c); background: #dcfce7; color: var(--exit-c); }
+.hl-msg  { border-color: var(--msg-c);  background: #f3e8ff; color: #7c3aed; }
 
 /* Speech bubble — for send_message turns */
 .speech-bubble {
   position: relative;
-  background: #0c0618;
-  border: 1px solid #4c1d95;
+  background: #f3e8ff;
+  border: 1px solid #c4b5fd;
   padding: 12px 14px;
   margin-top: 2px;
 }
@@ -269,7 +269,7 @@ button:disabled { opacity: 0.25; cursor: default; }
   top: -8px;
   left: 14px;
   border: 4px solid transparent;
-  border-bottom-color: #4c1d95;
+  border-bottom-color: #c4b5fd;
 }
 .speech-bubble::after {
   content: '';
@@ -277,7 +277,7 @@ button:disabled { opacity: 0.25; cursor: default; }
   top: -6px;
   left: 15px;
   border: 3px solid transparent;
-  border-bottom-color: #0c0618;
+  border-bottom-color: #f3e8ff;
 }
 .bubble-from {
   font-size: 10px;
@@ -287,7 +287,7 @@ button:disabled { opacity: 0.25; cursor: default; }
 }
 .bubble-text {
   font-size: 13px;
-  color: #e2d9f3;
+  color: #3b0764;
   line-height: 1.75;
   white-space: pre-wrap;
   word-break: break-word;
@@ -343,18 +343,18 @@ button:disabled { opacity: 0.25; cursor: default; }
   line-height: 1.5;
   transition: background 0.08s;
 }
-.mi:hover  { background: var(--bg3); }
-.mi.active { background: var(--bg3); }
+.mi:hover  { background: #eaeef2; }
+.mi.active { background: #eaeef2; }
 .mi-turn   { font-size: 9px; color: var(--dim2); margin-bottom: 1px; }
 
 .mi-key  { border-color: var(--key-c); }
 .mi-door { border-color: var(--door-c); }
 .mi-exit { border-color: var(--exit-c); }
 .mi-msg  { border-color: var(--msg-c); }
-.mi-key.active  { background: #130f00; }
-.mi-door.active { background: #120000; }
-.mi-exit.active { background: #001108; }
-.mi-msg.active  { background: #0d0520; }
+.mi-key.active  { background: #fef3c7; }
+.mi-door.active { background: #fee2e2; }
+.mi-exit.active { background: #dcfce7; }
+.mi-msg.active  { background: #f3e8ff; }
 
 /* ── loading ───────────────────────────────────────────────────────────────── */
 #loading {
@@ -392,12 +392,12 @@ button:disabled { opacity: 0.25; cursor: default; }
     </div>
 
     <div class="legend">
-      <div class="li"><span class="sw" style="background:#050505;border:none"></span>wall</div>
-      <div class="li"><span class="sw" style="background:#ffd700;border-color:#b8960a"></span>key</div>
-      <div class="li"><span class="sw" style="background:#cc2200;border-color:#991a00"></span>door</div>
-      <div class="li"><span class="sw" style="background:#00aa44;border-color:#007a30"></span>exit</div>
-      <div class="li"><span class="sw" style="background:#4a9eff"></span>agent 1</div>
-      <div class="li"><span class="sw" style="background:#ff7b2e"></span>agent 2</div>
+      <div class="li"><span class="sw" style="background:#24292f;border:none"></span>wall</div>
+      <div class="li"><span class="sw" style="background:#f59e0b;border-color:#d97706"></span>key</div>
+      <div class="li"><span class="sw" style="background:#dc2626;border-color:#b91c1c"></span>door</div>
+      <div class="li"><span class="sw" style="background:#16a34a;border-color:#15803d"></span>exit</div>
+      <div class="li"><span class="sw" style="background:#2563eb"></span>agent 1</div>
+      <div class="li"><span class="sw" style="background:#ea580c"></span>agent 2</div>
       <div class="li"><span style="font-size:9px;color:var(--dim2)">faded = trail</span></div>
     </div>
 
@@ -443,7 +443,7 @@ button:disabled { opacity: 0.25; cursor: default; }
     <div class="chart-section">
       <div class="chart-title">CUMULATIVE REWARD</div>
       <svg id="rewardChart" width="258" height="115"
-           style="display:block;background:#0d1117"></svg>
+           style="display:block;background:#ffffff"></svg>
       <div class="chart-legend">
         <span class="cl-a1">▬ agent 1</span>
         <span class="cl-a2">▬ agent 2</span>
@@ -662,7 +662,7 @@ function renderFog(idx) {
       if (!visited.has(`${r},${c}`)) {
         const x = c * STRIDE, y = r * STRIDE;
         rects.push(`<rect x="${x}" y="${y}" width="48" height="48"
-                          fill="#0d1117" opacity="0.75"/>`);
+                          fill="#f6f8fa" opacity="0.78"/>`);
       }
     }
   }
@@ -686,7 +686,7 @@ function renderTrail(idx) {
   }
 
   svg.innerHTML =
-    circles(s.a1Trail, '#3b82f6') +
+    circles(s.a1Trail, '#2563eb') +
     circles(s.a2Trail, '#ea580c');
 }
 
@@ -736,19 +736,19 @@ function renderChart(idx) {
   const zy = py(0);
   const zeroLine = (minV <= 0 && maxV >= 0)
     ? `<line x1="${PL}" y1="${zy.toFixed(1)}" x2="${W-PR}" y2="${zy.toFixed(1)}"
-            stroke="#282828" stroke-width="1" stroke-dasharray="3,3"/>`
+            stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>`
     : '';
 
   // Current-turn marker
   const mx  = px(idx);
   const marker = `<line x1="${mx.toFixed(1)}" y1="${PT}"
                         x2="${mx.toFixed(1)}" y2="${H-PB}"
-                        stroke="#3a3a3a" stroke-width="1"/>`;
+                        stroke="#8c959f" stroke-width="1"/>`;
 
   // Dots at current idx
   const y1c = py(a1[idx]);
   const y2c = py(a2[idx]);
-  const dot1 = `<circle cx="${mx.toFixed(1)}" cy="${y1c.toFixed(1)}" r="3" fill="#3b82f6"/>`;
+  const dot1 = `<circle cx="${mx.toFixed(1)}" cy="${y1c.toFixed(1)}" r="3" fill="#2563eb"/>`;
   const dot2 = `<circle cx="${mx.toFixed(1)}" cy="${y2c.toFixed(1)}" r="3" fill="#ea580c"/>`;
 
   // Value labels at current marker
@@ -756,26 +756,26 @@ function renderChart(idx) {
   const anchor    = rightHalf ? 'end' : 'start';
   const xOff      = rightHalf ? -5 : 5;
   const lbl1 = `<text x="${(mx+xOff).toFixed(1)}" y="${(y1c - 4).toFixed(1)}"
-                      fill="#60a5fa" font-size="8" font-family="monospace"
+                      fill="#2563eb" font-size="8" font-family="monospace"
                       text-anchor="${anchor}">${fmt(a1[idx])}</text>`;
   const sep   = Math.abs(y1c - y2c);
   const yOff2 = sep < 14 ? 12 : -4;
   const lbl2 = `<text x="${(mx+xOff).toFixed(1)}" y="${(y2c + yOff2).toFixed(1)}"
-                      fill="#fb923c" font-size="8" font-family="monospace"
+                      fill="#ea580c" font-size="8" font-family="monospace"
                       text-anchor="${anchor}">${fmt(a2[idx])}</text>`;
 
   // Axis labels
   const yMax = `<text x="${PL-3}" y="${(py(maxV)+3).toFixed(1)}"
-                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      fill="#8c959f" font-size="8" font-family="monospace"
                       text-anchor="end">${Math.round(maxV)}</text>`;
   const yMin = `<text x="${PL-3}" y="${(py(minV)+3).toFixed(1)}"
-                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      fill="#8c959f" font-size="8" font-family="monospace"
                       text-anchor="end">${Math.round(minV)}</text>`;
   const xL0  = `<text x="${PL}"   y="${H}"
-                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      fill="#8c959f" font-size="8" font-family="monospace"
                       text-anchor="middle">0</text>`;
   const xLN  = `<text x="${W-PR}" y="${H}"
-                      fill="#3a3a3a" font-size="8" font-family="monospace"
+                      fill="#8c959f" font-size="8" font-family="monospace"
                       text-anchor="middle">${n-1}</text>`;
 
   // Transparent hit-area rect on top (mouse events handled in JS)
@@ -787,7 +787,7 @@ function renderChart(idx) {
 
   svgEl.innerHTML =
     zeroLine + marker +
-    polyline(a2, '#ea580c') + polyline(a1, '#3b82f6') +
+    polyline(a2, '#ea580c') + polyline(a1, '#2563eb') +
     dot1 + dot2 + lbl1 + lbl2 +
     yMax + yMin + xL0 + xLN +
     hoverGroup + hitRect;
@@ -820,20 +820,20 @@ function renderChart(idx) {
     const tipY = PT + 2;
 
     const hairline = `<line x1="${hx.toFixed(1)}" y1="${PT}" x2="${hx.toFixed(1)}" y2="${H-PB}"
-                            stroke="#555" stroke-width="1" stroke-dasharray="2,2"/>`;
+                            stroke="#8c959f" stroke-width="1" stroke-dasharray="2,2"/>`;
     const hd1 = `<circle cx="${hx.toFixed(1)}" cy="${y1h.toFixed(1)}" r="3"
-                          fill="none" stroke="#60a5fa" stroke-width="1.5"/>`;
+                          fill="none" stroke="#2563eb" stroke-width="1.5"/>`;
     const hd2 = `<circle cx="${hx.toFixed(1)}" cy="${y2h.toFixed(1)}" r="3"
-                          fill="none" stroke="#fb923c" stroke-width="1.5"/>`;
+                          fill="none" stroke="#ea580c" stroke-width="1.5"/>`;
 
     const box  = `<rect x="${tipX.toFixed(1)}" y="${tipY}" width="${tipW}" height="${tipH}"
-                        rx="2" fill="#1a1a1a" stroke="#333" stroke-width="1"/>`;
+                        rx="2" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>`;
     const tTurn = `<text x="${(tipX+5).toFixed(1)}" y="${tipY+11}"
-                         fill="#666" font-size="8" font-family="monospace">turn ${ti}</text>`;
+                         fill="#57606a" font-size="8" font-family="monospace">turn ${ti}</text>`;
     const tA1   = `<text x="${(tipX+5).toFixed(1)}" y="${tipY+21}"
-                         fill="#60a5fa" font-size="8" font-family="monospace">A1 ${fmt(a1[ti])}</text>`;
+                         fill="#2563eb" font-size="8" font-family="monospace">A1 ${fmt(a1[ti])}</text>`;
     const tA2   = `<text x="${(tipX+5).toFixed(1)}" y="${tipY+31}"
-                         fill="#fb923c" font-size="8" font-family="monospace">A2 ${fmt(a2[ti])}</text>`;
+                         fill="#ea580c" font-size="8" font-family="monospace">A2 ${fmt(a2[ti])}</text>`;
 
     const g = document.getElementById('chartHover');
     if (g) g.innerHTML = hairline + hd1 + hd2 + box + tTurn + tA1 + tA2;
