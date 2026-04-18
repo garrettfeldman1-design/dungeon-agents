@@ -295,6 +295,20 @@ button:disabled { opacity: 0.25; cursor: default; }
 
 .no-data { font-size: 12px; color: var(--dim2); font-style: italic; }
 
+/* Narrative section */
+.narrative-block {
+  background: #f0f4f8;
+  border-left: 3px solid #b6c2cd;
+  padding: 8px 11px;
+  border-radius: 0 3px 3px 0;
+}
+.narrative-text {
+  font-size: 12px;
+  font-style: italic;
+  color: #444d56;
+  line-height: 1.65;
+}
+
 /* ── col 3: chart + moments ────────────────────────────────────────────────── */
 .col-right {
   display: flex;
@@ -865,6 +879,99 @@ function renderSummary(idx) {
   el.innerHTML = `<span class="${cls}">Agent ${s.ag}</span>&nbsp;${esc(s.text)}`;
 }
 
+// ── Narrative generator ────────────────────────────────────────────────────────
+function makeNarrative(e, ws) {
+  const ag   = e.agent_id;
+  const act  = e.action || {};
+  const tool = act.tool_called || '';
+  const args = act.tool_args   || {};
+  const pre  = e.state        || {};
+  const post = e.next_state   || {};
+  const pos  = post.position;
+  const A    = `Agent ${ag}`;
+
+  if (tool === 'move') {
+    const dir  = args.direction || '?';
+    const posStr = pos ? `(${pos[0]}, ${pos[1]})` : '?';
+    // Did the move succeed?
+    const failed = typeof e.result === 'string' && !e.result.toLowerCase().startsWith('agent');
+    if (failed) {
+      return `${A} tried to move ${dir} but was blocked — there's a wall or locked door in the way.`;
+    }
+    // Context: what objective is closest?
+    let context = '';
+    if (ws.keyPresent) {
+      // Key still on map — are they moving toward it? Key is at (3,4)
+      const KEY_R = 3, KEY_C = 4;
+      const prePre = pre.position || pos;
+      const preD = Math.abs(prePre[0]-KEY_R) + Math.abs(prePre[1]-KEY_C);
+      const postD = Math.abs(pos[0]-KEY_R) + Math.abs(pos[1]-KEY_C);
+      context = postD < preD ? ', moving closer to the key' : ', exploring the upper half';
+    } else if (ws.doorLocked) {
+      // Has key, heading to door at (4,3)
+      const DOOR_R = 4, DOOR_C = 3;
+      const prePre = pre.position || pos;
+      const preD = Math.abs(prePre[0]-DOOR_R) + Math.abs(prePre[1]-DOOR_C);
+      const postD = Math.abs(pos[0]-DOOR_R) + Math.abs(pos[1]-DOOR_C);
+      context = postD < preD ? ', heading toward the locked door' : '';
+    } else {
+      // Door open, head to exit at (6,6)
+      const EXIT_R = 6, EXIT_C = 6;
+      const prePre = pre.position || pos;
+      const preD = Math.abs(prePre[0]-EXIT_R) + Math.abs(prePre[1]-EXIT_C);
+      const postD = Math.abs(pos[0]-EXIT_R) + Math.abs(pos[1]-EXIT_C);
+      context = postD < preD ? ', heading toward the exit' : '';
+    }
+    return `${A} moved ${dir} to ${posStr}${context}.`;
+  }
+
+  if (tool === 'pick_up_item') {
+    const success = typeof e.result === 'string' && e.result.toLowerCase().includes('key');
+    if (success) {
+      return `${A} picked up the KEY — now equipped to unlock the door at (4, 3).`;
+    }
+    return `${A} tried to pick something up but there was nothing here.`;
+  }
+
+  if (tool === 'use_item') {
+    const success = typeof e.result === 'string' && e.result.toLowerCase().includes('unlock');
+    if (success) {
+      return `${A} used the KEY to unlock the door — the path south is now open for both agents.`;
+    }
+    return `${A} tried to use the KEY but the target wasn't a locked door, or it was out of range.`;
+  }
+
+  if (tool === 'send_message') {
+    const msg     = (args.message || '').slice(0, 100);
+    const to      = args.recipient ? `Agent ${args.recipient}` : 'the other agent';
+    const ellipsis = (args.message || '').length > 100 ? '…' : '';
+    return `${A} radioed ${to} with: "${msg}${ellipsis}"`;
+  }
+
+  if (tool === 'look') {
+    const vis = post.visible_cells || {};
+    const notable = Object.values(vis).filter(v => v !== 'empty floor' && v !== 'wall' && !v.startsWith('Agent'));
+    const n = Object.keys(vis).length;
+    const noteStr = notable.length
+      ? `spotted: ${notable.join(', ')}`
+      : 'nothing unusual nearby';
+    return `${A} surveyed the surroundings — ${n} cells visible, ${noteStr}.`;
+  }
+
+  if (tool === 'check_coordinates') {
+    const posStr = pos ? `(${pos[0]}, ${pos[1]})` : '?';
+    return `${A} checked their position — currently at ${posStr}.`;
+  }
+
+  if (tool === 'check_inventory') {
+    const inv = (post.inventory || []);
+    const invStr = inv.length ? inv.join(', ') : 'nothing';
+    return `${A} checked their inventory — carrying: ${invStr}.`;
+  }
+
+  return `${A} performed ${tool}.`;
+}
+
 // ── Info panel ─────────────────────────────────────────────────────────────────
 function renderInfo(idx) {
   const panel = document.getElementById('infoPanel');
@@ -932,9 +1039,16 @@ function renderInfo(idx) {
   const rewardSign = r >= 0 ? '+' : '';
   const cumSign    = cumR >= 0 ? '+' : '';
 
+  const narrative = makeNarrative(e, worldStates[idx - 1]);
+
   panel.innerHTML = `
     ${hlHtml}
     <div class="panel-head">TURN ${e.turn} &nbsp;·&nbsp; AGENT ${e.agent_id}</div>
+
+    <div class="field">
+      <div class="fl">narrative</div>
+      <div class="narrative-block"><div class="narrative-text">${esc(narrative)}</div></div>
+    </div>
 
     <div class="field">
       <div class="fl">action</div>
