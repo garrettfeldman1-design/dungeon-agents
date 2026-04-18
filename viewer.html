@@ -91,18 +91,18 @@ header h1  { font-size: 12px; letter-spacing: 3px; color: var(--accent); }
   justify-content: center;
   font-size: 16px;
   font-weight: 700;
-  border: 1px solid #21262d;
+  border: 1px solid #2a3f5f;
   user-select: none;
 }
-.c-empty         { background: #161b22; color: #2d333b; }
-.c-empty-visited { background: #1c2a3a; color: #2d3f52; }
-.c-wall          { background: #0a0a0a; color: #141414; border-color: #111; }
-.c-key   { background: #1a1200; color: var(--key-c);  border-color: #3a2800; }
-.c-door  { background: #160000; color: var(--door-c); border-color: #330000; }
-.c-exit  { background: #001400; color: var(--exit-c); border-color: #002800; }
-.c-a1    { background: var(--a1); color: #fff; border-color: var(--a1hi); }
-.c-a2    { background: var(--a2); color: #fff; border-color: var(--a2hi); }
-.c-both  { background: #5b21b6; color: #fff; border-color: #8b5cf6; }
+.c-empty         { background: #0d1117; color: #1e2d3d; }
+.c-empty-visited { background: #1e3a5f; color: #3a6090; }
+.c-wall          { background: #050505; color: #050505; border: none; }
+.c-key   { background: #ffd700; color: #1a1000; border-color: #b8960a; }
+.c-door  { background: #cc2200; color: #fff;    border-color: #991a00; }
+.c-exit  { background: #00aa44; color: #fff;    border-color: #007a30; }
+.c-a1    { background: var(--a1); color: #fff; border-color: var(--a1hi); font-size: 20px; }
+.c-a2    { background: var(--a2); color: #fff; border-color: var(--a2hi); font-size: 20px; }
+.c-both  { background: #5b21b6; color: #fff; border-color: #8b5cf6; font-size: 20px; }
 
 /* SVG trail overlay sits above cells, ignores mouse */
 .trail-svg {
@@ -392,12 +392,12 @@ button:disabled { opacity: 0.25; cursor: default; }
     </div>
 
     <div class="legend">
-      <div class="li"><span class="sw" style="background:#0a0a0a;border-color:#111"></span>wall</div>
-      <div class="li"><span class="sw" style="background:#130f00;border-color:#2e2000"></span>key</div>
-      <div class="li"><span class="sw" style="background:#120000;border-color:#280000"></span>door</div>
-      <div class="li"><span class="sw" style="background:#001108;border-color:#001e10"></span>exit</div>
-      <div class="li"><span class="sw" style="background:#2563eb"></span>agent 1</div>
-      <div class="li"><span class="sw" style="background:#c2410c"></span>agent 2</div>
+      <div class="li"><span class="sw" style="background:#050505;border:none"></span>wall</div>
+      <div class="li"><span class="sw" style="background:#ffd700;border-color:#b8960a"></span>key</div>
+      <div class="li"><span class="sw" style="background:#cc2200;border-color:#991a00"></span>door</div>
+      <div class="li"><span class="sw" style="background:#00aa44;border-color:#007a30"></span>exit</div>
+      <div class="li"><span class="sw" style="background:#4a9eff"></span>agent 1</div>
+      <div class="li"><span class="sw" style="background:#ff7b2e"></span>agent 2</div>
       <div class="li"><span style="font-size:9px;color:var(--dim2)">faded = trail</span></div>
     </div>
 
