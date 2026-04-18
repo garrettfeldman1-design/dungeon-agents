@@ -159,6 +159,17 @@ button:disabled { opacity: 0.25; cursor: default; }
 .speed-opt:hover  { color: var(--text); }
 .speed-opt.active { color: var(--accent); border-color: var(--border); }
 
+/* Stats bar */
+.stats-bar {
+  font-size: 10px;
+  color: var(--dim2);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+.stats-bar .sl { color: var(--dim); }
+.stats-bar .va1 { color: var(--a1hi); }
+.stats-bar .va2 { color: var(--a2hi); }
+
 /* ── col 2: info ───────────────────────────────────────────────────────────── */
 .col-info {
   border-right: 1px solid var(--border);
@@ -414,6 +425,8 @@ button:disabled { opacity: 0.25; cursor: default; }
         </label>
       </div>
     </div>
+
+    <div class="stats-bar" id="statsBar">—</div>
   </div>
 
   <!-- col 2: turn summary + info panel -->
@@ -948,9 +961,49 @@ function goTo(idx) {
   renderSummary(currentTurn);
   renderInfo(currentTurn);
   renderMoments();
+  renderStats(currentTurn);
 }
 
 function step(d) { goTo(currentTurn + d); }
+
+// ── Stats bar ──────────────────────────────────────────────────────────────────
+function renderStats(idx) {
+  const el = document.getElementById('statsBar');
+  if (!validLog || !validLog.length || idx === 0) { el.innerHTML = '—'; return; }
+
+  const tools1 = {}, tools2 = {};
+  let r1 = 0, r2 = 0;
+  const slice = validLog.slice(0, idx);
+
+  for (const e of slice) {
+    const t = e.action.tool_called;
+    if (e.agent_id === 1) { tools1[t] = (tools1[t] || 0) + 1; r1 = +e.reward + r1; }
+    else                  { tools2[t] = (tools2[t] || 0) + 1; r2 = +e.reward + r2; }
+  }
+
+  // recompute cumulative rewards correctly (reward is per-turn not cumulative in log)
+  r1 = 0; r2 = 0;
+  for (const e of slice) {
+    if (e.agent_id === 1) r1 += e.reward;
+    else                  r2 += e.reward;
+  }
+  r1 = Math.round(r1 * 100) / 100;
+  r2 = Math.round(r2 * 100) / 100;
+
+  const turns1 = slice.filter(e => e.agent_id === 1).length;
+  const turns2 = slice.filter(e => e.agent_id === 2).length;
+  const eff1 = turns1 ? (r1 / turns1).toFixed(2) : '—';
+  const eff2 = turns2 ? (r2 / turns2).toFixed(2) : '—';
+
+  const fmt = (tc) => Object.entries(tc).map(([k,v]) => `${k}×${v}`).join(' ') || '—';
+
+  el.innerHTML =
+    `<span class="sl">turns</span> ${idx} &nbsp;` +
+    `<span class="va1">A1</span> reward <span class="va1">${r1 >= 0 ? '+' : ''}${r1}</span> eff <span class="va1">${eff1}</span> &nbsp;` +
+    `<span class="va2">A2</span> reward <span class="va2">${r2 >= 0 ? '+' : ''}${r2}</span> eff <span class="va2">${eff2}</span><br>` +
+    `<span class="sl">A1:</span> <span class="va1">${fmt(tools1)}</span> &nbsp; ` +
+    `<span class="sl">A2:</span> <span class="va2">${fmt(tools2)}</span>`;
+}
 
 document.addEventListener('keydown', ev => {
   if (ev.target.tagName === 'INPUT') return;
